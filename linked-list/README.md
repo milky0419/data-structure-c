@@ -1,4 +1,4 @@
-[README(ll).md](https://github.com/user-attachments/files/21699631/README.ll.md)
+[README.md](https://github.com/user-attachments/files/21699631/README.ll.md)
 # 단일 연결 리스트 (Linked List)
 
 ## 개념
