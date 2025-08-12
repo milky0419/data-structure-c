@@ -10,7 +10,7 @@
 
 - 데이터 저장 공간을 **낭비하지 않을 수 있**어, 자주 쓰임
 
-### 연결 리스트 구현 방법
+### (단일) 연결 리스트 구현 방법
 
 #### 1. 연결 리스트의 노드를 구조체로 선언하기
 
@@ -317,3 +317,4 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 - ll_push_front(NULL, 10), `ll_push_back(NULL, 10)` 안전 처리
 - `ll_pop_front(NULL, &value)`, `ll_pop_back(NULL, &value)` 실패(0) 반환
 - `ll_print(NULL)` 적절한 메시지 출력
+
