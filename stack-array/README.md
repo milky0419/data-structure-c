@@ -50,14 +50,13 @@ typedef struct {
 - 새로운 스택 생성 및 초기화: `sa_create()`
 - 데이터 삽입: `sa_push()`
 - 데이터 제거 및 반환: `sa_pop()`
-- 최상단 확인(제거하지 않음): `sa_peek()`
+- 최상단 확인: `sa_peek()`
 - 비어 있는지 확인: `sa_is_empty()`
 - 가득 찼는지 확인: `sa_is_full()`
 - 현재 저장된 요소 개수 반환: `sa_size()`
 - 스택 내용 출력 (bottom -> top 순서): `sa_print()`
 - 스택 구조체 해제: `sa_free()`
 - top 인덱스 유효성과 스택 상태 검증 (자동 실행): `sa_check_invariants()`
-- 
 
 ## 테스트
 
