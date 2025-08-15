@@ -31,7 +31,7 @@ static LLNode* ll_new_node(int value) {
 // 빈 리스트일 때 head==NULL && tail==NULL인지 검사
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 static void ll_check_invariants(const LLP* list) {
-    if (!list) { // 리스트가 없을 때때
+    if (!list) { // 리스트가 없을 때
         printf("invariant failed: list is NULL\n");
         return; // 함수 종료
     }
@@ -65,7 +65,7 @@ void ll_push_front(LLP* list, int value) {
 
     LLNode* n = ll_new_node(value);
     if (!n) // 메모리 부족 시
-        return; // 함수 종료료
+        return; // 함수 종료
 
     n->next = list->head;
     list->head = n;
@@ -206,4 +206,5 @@ int ll_is_empty(const LLP* list) {
     return (list->head == NULL) ? 1 : 0;
 
 }
+
 
