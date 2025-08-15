@@ -27,6 +27,7 @@ static LLNode* ll_new_node(int value) {
 }
 
 /* ===== 불변식 검사(추가 기능) ===== */
+// 이름 충돌을 방지하기 위해 static void형으으로 선언
 // 빈 리스트일 때 head==NULL && tail==NULL인지 검사
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 static void ll_check_invariants(const LLP* list) {
@@ -95,7 +96,7 @@ void ll_push_back(LLP* list, int value) {
 
 /* ===== 맨 앞/뒤 삭제 ===== */
 
-/* 맨 앞 삭제: 성공 시 1, 실패 시 0 */
+/* 맨 앞 삭제: 성공 시 1, 실패 시 0 반환환 */
 int ll_pop_front(LLP* list, int* out) {
     if (!list || !list->head)
         return 0; // 실패
@@ -114,7 +115,7 @@ int ll_pop_front(LLP* list, int* out) {
     return 1; // 성공
 }
 
-/* 맨 뒤 삭제: 성공 시 1, 실패 시 0 */
+/* 맨 뒤 삭제: 성공 시 1, 실패 시 0 반환 */
 int ll_pop_back(LLP* list, int* out) {
     if (!list || !list->head)
         return 0; // 실패
@@ -203,4 +204,5 @@ int ll_is_empty(const LLP* list) {
     if (!list)
         return 1; // NULL이면 비어있다고 간주
     return (list->head == NULL) ? 1 : 0;
+
 }
