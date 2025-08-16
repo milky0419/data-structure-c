@@ -111,7 +111,7 @@ int main() {
 
     printf("\n");
 
-    // 8. 에러 상황 테스트 - 빈 리스트에서 삭제 시도
+    // 8. 에러 상황 테스트 - 빈 리스트에서 삭제
     printf("8. 에러 상황 테스트 - 빈 리스트에서 삭제 시도\n");
     printf("빈 리스트에서 맨 앞 삭제 시도 중...\n");
     result = ll_pop_front(&list, &deleted_value);
@@ -137,7 +137,7 @@ int main() {
 
     printf("\n");
 
-    // 10. 최종 테스트 - 다양한 연산 조합
+    // 10. 복합 연산 테스트
     printf("10. 최종 테스트 - 다양한 연산 조합\n");
     for (int i = 1; i <= 5; i++) {
         ll_push_back(&list, i * 10);
@@ -169,7 +169,7 @@ int main() {
 
     printf("\n");
 
-    // 12. 메모리 해제
+    // 12. 메모리 해제 테스트
     printf("12. 메모리 해제 테스트\n");
     ll_free(&list);
     printf("리스트 메모리 해제 완료\n");
@@ -177,7 +177,7 @@ int main() {
 
     printf("\n");
 
-    // 13. NULL 포인터 테스트
+    // 13. NULL 포인터 안정성 테스트
     printf("13. NULL 포인터 안전성 테스트\n");
     ll_push_front(NULL, 10);
     ll_push_back(NULL, 10);
@@ -189,5 +189,5 @@ int main() {
     printf("NULL 포인터 테스트 완료\n");
 
     printf("\n===== 단일 연결 리스트 테스트 완료 =====\n");
-    return 0;
 }
+
