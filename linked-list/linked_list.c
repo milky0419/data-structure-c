@@ -1,4 +1,4 @@
-﻿#include "linked_list.h"
+#include "linked_list.h"
 #include <stdio.h>
 #include <stdlib.h> // malloc, free를 사용하기 위함
 
@@ -15,7 +15,7 @@ LLP ll_create() {
 
 /* 새 노드 동적 생성 */
 static LLNode* ll_new_node(int value) {
-    LLNode* n = (LLNode*)malloc(sizeof(LLNode));
+    LLNode* n = (LLNode*)malloc(sizeof(LLNode)); // 동적 할당 및 주소 저장
 
     if (!n) // 동적 할당 실패 시
         return NULL; // NULL 반환
@@ -27,7 +27,6 @@ static LLNode* ll_new_node(int value) {
 }
 
 /* ===== 불변식 검사(추가 기능) ===== */
-// 이름 충돌을 방지하기 위해 static void형으로 선언
 // 빈 리스트일 때 head==NULL && tail==NULL인지 검사
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 static void ll_check_invariants(const LLP* list) {
@@ -56,33 +55,41 @@ static void ll_check_invariants(const LLP* list) {
         printf("invariant failed: tail->next must be NULL\n");
 }
 
+/* ===== 리스트가 비어있는지 확인 ===== */
+int ll_is_empty(const LLP* list) {
+    if (!list)
+        return 1; // NULL이면 비어있다고 간주
+    return (list->head == NULL) ? 1 : 0;
+}
+
 /* ===== 맨 앞/뒤 삽입 ===== */
 
-/* 맨 앞 삽입 */
-void ll_push_front(LLP* list, int value) {
-    if (!list) // 리스트가 없을 때
-        return; // 함수 종료
-
+/* 맨 앞 삽입: 성공 시 1, 실패 시 0 반환 */
+int ll_push_front(LLP* list, int value) {
+    if (!list) // 빈 리스트일 때
+        return 0;
+    
     LLNode* n = ll_new_node(value);
     if (!n) // 메모리 부족 시
-        return; // 함수 종료
+        return 0;
 
     n->next = list->head;
     list->head = n;
-    if (list->tail == NULL) // 첫 삽입일 때
-        list->tail = n; // tail 동기화
-
+    if (!list->tail) // 첫 삽입일 때
+        list->tail = n; // tail을 head와 동기화
+    
     ll_check_invariants(list); // 불변식 검사
+    return 1;
 }
 
-/* 맨 뒤 삽입 */
-void ll_push_back(LLP* list, int value) {
+/* 맨 뒤 삽입: 성공 시 1, 실패 시 0 반환 */
+int ll_push_back(LLP* list, int value) {
     if (!list) // 리스트가 없을 때
-        return; // 함수 종료
-
+        return 0;
+    
     LLNode* n = ll_new_node(value);
-    if (!n) // 메모리 부족 시
-        return; // 함수 종료
+    if (!n) // 메모리가 부족할 때
+        return 0;
 
     if (!list->head) // 빈 리스트일 때
         list->head = list->tail = n;
@@ -92,13 +99,14 @@ void ll_push_back(LLP* list, int value) {
     }
 
     ll_check_invariants(list); // 불변식 검사
+    return 1;
 }
 
 /* ===== 맨 앞/뒤 삭제 ===== */
 
 /* 맨 앞 삭제: 성공 시 1, 실패 시 0 반환 */
 int ll_pop_front(LLP* list, int* out) {
-    if (!list || !list->head)
+    if (ll_is_empty(list))
         return 0; // 실패
 
     LLNode* first = list->head;
@@ -117,7 +125,7 @@ int ll_pop_front(LLP* list, int* out) {
 
 /* 맨 뒤 삭제: 성공 시 1, 실패 시 0 반환 */
 int ll_pop_back(LLP* list, int* out) {
-    if (!list || !list->head)
+    if (ll_is_empty(list))
         return 0; // 실패
 
     // 노드가 한 개일 때: ll_pop_front와 비슷하게 실행
@@ -151,7 +159,7 @@ int ll_pop_back(LLP* list, int* out) {
 /* ===== 값 탐색 ===== */
 /* 값 탐색: 찾으면 노드 포인터, 못 찾으면 NULL 반환 */
 LLNode* ll_find(const LLP* list, int target) {
-    if (!list || !list->head)
+    if (ll_is_empty(list))
         return NULL; // 실패
 
     LLNode* cur = list->head;
@@ -165,12 +173,11 @@ LLNode* ll_find(const LLP* list, int target) {
 
 /* ===== 전체 출력 ===== */
 void ll_print(const LLP* list) {
-    if (!list || !list->head) {
+    if (ll_is_empty(list)) {
         printf("리스트가 비어있습니다\n");
         return;
     }
 
-    printf("리스트: ");
     LLNode* cur = list->head;
     while (cur) {
         printf("%d", cur->data);
@@ -179,7 +186,7 @@ void ll_print(const LLP* list) {
         }
         cur = cur->next;
     }
-    printf(" -> NULL\n");
+    printf("\n");
 }
 
 /* ===== 메모리 해제 ===== */
@@ -197,12 +204,4 @@ void ll_free(LLP* list) {
 
     list->head = NULL;
     list->tail = NULL;
-}
-
-/* ===== 리스트가 비어있는지 확인 ===== */
-int ll_is_empty(const LLP* list) {
-    if (!list)
-        return 1; // NULL이면 비어있다고 간주
-    return (list->head == NULL) ? 1 : 0;
-
 }
