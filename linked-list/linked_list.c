@@ -157,7 +157,7 @@ int ll_pop_back(LLP* list, int* out) {
 }
 
 /* ===== 값 탐색 ===== */
-/* 값 탐색: 찾으면 노드 포인터, 못 찾으면 NULL 반환 */
+// 찾으면 노드 포인터, 못 찾으면 NULL 반환
 LLNode* ll_find(const LLP* list, int target) {
     if (ll_is_empty(list))
         return NULL; // 실패
@@ -205,3 +205,4 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
