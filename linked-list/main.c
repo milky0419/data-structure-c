@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include "linked_list.h"
 
 int main() {
@@ -12,28 +12,35 @@ int main() {
     ll_print(&list);
     printf("비어있음 확인: %s\n", ll_is_empty(&list) ? "비어있음" : "비어있지 않음");
     ll_print(&list);
+    
     printf("\n");
 
     // 2. 맨 앞 삽입 테스트
     printf("2. 맨 앞 삽입 테스트\n");
-    ll_push_front(&list, 10);
+    if (!ll_push_front(&list, 10))
+        printf("10 맨 앞 삽입 실패!\n");
     printf("10 삽입 후: ");
     ll_print(&list);
-
-    ll_push_front(&list, 20);
+    
+    if (!ll_push_front(&list, 20))
+        printf("20 맨 앞 삽입 실패!\n");
     printf("20 삽입 후: ");
     ll_print(&list);
+
     printf("\n");
 
     // 3. 맨 뒤 삽입 테스트
     printf("3. 맨 뒤 삽입 테스트\n");
-    ll_push_back(&list, 5);
+    if (!ll_push_back(&list, 5))
+        printf("5 맨 뒤 삽입 실패!\n");
     printf("5 삽입 후: ");
     ll_print(&list);
 
-    ll_push_back(&list, 1);
+    if (!ll_push_back(&list, 1))
+        printf("1 맨 뒤 삽입 실패!\n");
     printf("1 삽입 후: ");
     ll_print(&list);
+
     printf("\n");
 
     // 4. 값 탐색 테스트
@@ -63,6 +70,7 @@ int main() {
     else {
         printf("삭제 실패\n");
     }
+
     printf("\n");
 
     // 6. 맨 뒤 삭제 테스트
@@ -79,6 +87,7 @@ int main() {
     else {
         printf("삭제 실패\n");
     }
+
     printf("\n");
 
     // 7. 경계 조건 테스트 - 모든 요소 삭제
@@ -91,6 +100,7 @@ int main() {
         if (result) {
             printf("삭제된 값: %d\n", deleted_value);
             if (!ll_is_empty(&list)) {
+                printf("삭제 후: ");
                 ll_print(&list);
             }
         }
@@ -98,17 +108,19 @@ int main() {
     printf("모든 요소 삭제 완료\n");
     ll_print(&list);
     printf("비어있음 확인: %s\n", ll_is_empty(&list) ? "비어있음" : "비어있지 않음");
+
     printf("\n");
 
     // 8. 에러 상황 테스트 - 빈 리스트에서 삭제 시도
     printf("8. 에러 상황 테스트 - 빈 리스트에서 삭제 시도\n");
-    printf("빈 리스트에서 맨 앞 삭제 시도:\n");
+    printf("빈 리스트에서 맨 앞 삭제 시도 중...\n");
     result = ll_pop_front(&list, &deleted_value);
     printf("결과: %s\n", result ? "성공" : "실패");
 
-    printf("빈 리스트에서 맨 뒤 삭제 시도:\n");
+    printf("빈 리스트에서 맨 뒤 삭제 시도 중...\n");
     result = ll_pop_back(&list, &deleted_value);
     printf("결과: %s\n", result ? "성공" : "실패");
+
     printf("\n");
 
     // 9. 단일 노드 테스트
@@ -122,6 +134,7 @@ int main() {
         printf("단일 노드 삭제: %d\n", deleted_value);
         ll_print(&list);
     }
+
     printf("\n");
 
     // 10. 최종 테스트 - 다양한 연산 조합
@@ -144,22 +157,24 @@ int main() {
     printf("200 탐색: %s\n", found ? "찾음" : "못 찾음");
     found = ll_find(&list, 999);
     printf("999 탐색: %s\n", found ? "찾음" : "못 찾음");
+
     printf("\n");
 
     // 11. 불변식 검사 테스트
     printf("11. 불변식 검사 테스트\n");
     printf("현재 리스트: ");
     ll_print(&list);
-    printf("불변식 검사 실행 중...\n");
-    // 불변식 검사는 각 삽입/삭제 연산 후 자동으로 실행됨
+    printf("불변식 검사 실행 중...\n"); // 불변식 검사는 각 삽입/삭제 연산 후 자동으로 실행됨
     printf("불변식 검사 완료 (에러 메시지가 없으면 정상)\n");
+
     printf("\n");
 
     // 12. 메모리 해제
-    printf("12. 메모리 해제\n");
+    printf("12. 메모리 해제 테스트\n");
     ll_free(&list);
     printf("리스트 메모리 해제 완료\n");
     ll_print(&list);
+
     printf("\n");
 
     // 13. NULL 포인터 테스트
