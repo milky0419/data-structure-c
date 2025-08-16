@@ -205,4 +205,3 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
-
