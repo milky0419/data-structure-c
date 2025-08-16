@@ -224,7 +224,7 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - **리스트 생성**: `ll_create()`
 
-- **데이터 무결성 검사**: `ll_check_invariants()`
+- ** 데이터 무결성 검사 (부가 기능) **: `ll_check_invariants()`
 
 - **맨 앞/뒤 삽입**: `ll_push_front()`, `ll_push_back()`
 
@@ -236,7 +236,7 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - **메모리 해제**: `ll_free() `
 
-- **빈 리스트 여부 확인**: `ll_is_empty()`
+- **빈 리스트 여부 확인 (부가 기능) **: `ll_is_empty()`
 
 ## 테스트
 
@@ -256,7 +256,6 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - 5 삽입 후 리스트 상태
 - 1 삽입 후 리스트 상태
-- tail 포인터 정상 동작 확인
 
 **4. 값 탐색 테스트 (`ll_find`)**
 
@@ -267,12 +266,10 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 **5. 맨 앞 삭제 테스트 (`ll_pop_front`)**
 
 - 삭제 후 상태
-- out 파라미터를 통한 값 반환 확인
 
 **6. 맨 뒤 삭제 테스트 (`ll_pop_back`)**
 
 - 삭제 후 상태
-- tail 포인터 업데이트 확인
 
 **7. 경계 조건 테스트 - 모든 요소 삭제**
 
@@ -285,13 +282,11 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - 빈 리스트에서 `ll_pop_front()` 호출
 - 빈 리스트에서 `ll_pop_back()` 호출
-- 안전한 에러 처리 확인
 
 **9. 단일 노드 테스트**
 
 - 99 하나만 삽입
 - 단일 노드에서 `ll_pop_back()` 실행
-- head와 tail이 동일한 노드를 가리킬 때의 처리 확인
 
 **10. 복합 연산 테스트**
 
@@ -317,4 +312,5 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 - ll_push_front(NULL, 10), `ll_push_back(NULL, 10)` 안전 처리
 - `ll_pop_front(NULL, &value)`, `ll_pop_back(NULL, &value)` 실패(0) 반환
 - `ll_print(NULL)` 적절한 메시지 출력
+
 
