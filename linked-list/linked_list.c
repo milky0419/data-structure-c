@@ -38,8 +38,7 @@ void ll_check_invariants(const LLP* list) {
     // 1) 빈 리스트일 때: head/tail은 동시에 NULL이어야 함
     if (list->head == NULL || list->tail == NULL) {
         if (!(list->head == NULL && list->tail == NULL))
-            printf("invariant failed: only one of head/tail is NULL (head=%p, tail=%p)\n",
-                (void*)list->head, (void*)list->tail);
+            printf("invariant failed: only one of head/tail is NULL (head=%p, tail=%p)\n", list->head, list->tail);
         return; // 빈 리스트면 추가 검사 불필요
     }
 
@@ -203,5 +202,6 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
 
 
