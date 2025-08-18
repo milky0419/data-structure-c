@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/21845306/README.ll.md)
 # 단일 연결 리스트 (Linked List)
 
 ## 개념
@@ -10,7 +11,7 @@
 
 - 데이터 저장 공간을 **낭비하지 않을 수 있**어, 자주 쓰임
 
-### (단일) 연결 리스트 구현 방법
+### 연결 리스트 구현 방법
 
 #### 1. 연결 리스트의 노드를 구조체로 선언하기
 
@@ -163,7 +164,7 @@ while (NULL != p_head) { // 시작 노드부터 마지막 노드까지 이동하
     free(p_head); // 포인터 변수 p_head가 가리키는 노드 삭제
     p_head = p; // 다음 노드로 옮김
 }
-p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_tail 값도 NULL로 변경함
+p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_tail 값도 NULL로 변경함 
 ```
 
 ### 연결 리스트의 종류
@@ -224,7 +225,9 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - **리스트 생성**: `ll_create()`
 
-- ** 데이터 무결성 검사 (부가 기능) **: `ll_check_invariants()`
+- **불변식 검사**: `ll_check_invariants()`
+
+- **빈 리스트 여부 확인**: `ll_is_empty()`
 
 - **맨 앞/뒤 삽입**: `ll_push_front()`, `ll_push_back()`
 
@@ -235,8 +238,6 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 - **전체 출력**: `ll_print()`
 
 - **메모리 해제**: `ll_free() `
-
-- **빈 리스트 여부 확인 (부가 기능) **: `ll_is_empty()`
 
 ## 테스트
 
@@ -250,7 +251,6 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - 10 삽입 후 리스트 상태
 - 20 삽입 후 리스트 상태
-- 삽입 순서와 실제 배치 관계 확인
 
 **3. 맨 뒤 삽입 테스트 (`ll_push_back`)**
 
@@ -261,11 +261,11 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - 존재하는 값 탐색
 - 존재하지 않는 값 탐색
-- NULL 반환 처리 확인
 
 **5. 맨 앞 삭제 테스트 (`ll_pop_front`)**
 
 - 삭제 후 상태
+- 값 반환 확인
 
 **6. 맨 뒤 삭제 테스트 (`ll_pop_back`)**
 
@@ -292,25 +292,22 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 
 - 1부터 5까지 10배수를 맨 뒤 삽입
 - 100, 200을 맨 앞 삽입
-- 다양한 값에 대한 탐색 테스트
+- 존재하는 값 탐색
+- 존재하지 않는 값 탐색
 
 **11. 불변식 검사 테스트**
 
 - 모든 삽입/삭제 연산 후 `ll_check_invariants()` 자동 실행
 - 에러 메시지가 없으면 데이터 구조가 올바르게 유지됨을 확인
-- head/tail 포인터 일관성 검증
 
 **12. 메모리 해제 테스트**
 
 - `ll_free()` 함수로 모든 노드 메모리 해제
 - 해제 후 빈 리스트 출력으로 정상 처리 확인
-- 댕글링 포인터 방지 (free 후 NULL 설정)
 
 **13. NULL 포인터 안전성 테스트**
 
 - NULL 리스트에 대한 모든 연산 테스트
-- ll_push_front(NULL, 10), `ll_push_back(NULL, 10)` 안전 처리
-- `ll_pop_front(NULL, &value)`, `ll_pop_back(NULL, &value)` 실패(0) 반환
-- `ll_print(NULL)` 적절한 메시지 출력
-
-
+- `ll_push_front(NULL, 10)`, `ll_push_back(NULL, 10)` 테스트
+- `ll_pop_front(NULL, &value)`, `ll_pop_back(NULL, &value)` 테스트
+- `ll_print(NULL)` 테스트
