@@ -31,7 +31,7 @@ static LLNode* ll_new_node(int value) {
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 void ll_check_invariants(const LLP* list) {
     if (!list) { // 리스트가 없을 때
-        printf("invariant failed: list is NULL\n");
+        printf("invariant failed: list deos not exist\n");
         return; // 함수 종료
     }
 
@@ -47,10 +47,8 @@ void ll_check_invariants(const LLP* list) {
     const LLNode* cur = list->head;
     while (cur->next) // 마지막 노드에 도달할 때까지 반복
         cur = cur->next;
-    if (cur != list->tail) {
-        printf("invariant failed: tail is not last (tail=%p, last=%p)\n",
-            (void*)list->tail, (void*)cur);
-    }
+    if (cur != list->tail)
+        printf("invariant failed: tail is not last (tail=%p, last=%p)\n", list->tail, cur);
     if (list->tail->next != NULL)
         printf("invariant failed: tail->next must be NULL\n");
 }
@@ -205,4 +203,5 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
 
