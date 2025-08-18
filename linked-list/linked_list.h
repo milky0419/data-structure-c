@@ -21,8 +21,8 @@ LLP ll_create();
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 void ll_check_invariants(const LLP* list);
 
-/* ===== 리스트가 비어있는지 확인: main.c에서 사용 ===== */
-int ll_is_empty(const LLP* list); // 비어있으면 1, 아니면 0
+/* ===== 리스트가 비어있는지 확인 ===== */
+int ll_is_empty(const LLP* list); // 비어있으면 1, 아니면 0 반환
 
 /* ===== 맨 앞/뒤 삽입 ===== */
 int ll_push_front(LLP* list, int value); // 맨 앞 삽입: 성공 시 1, 실패 시 0 반환
@@ -42,3 +42,4 @@ void ll_print(const LLP* list);
 void ll_free(LLP* list);
 
 #endif
+
