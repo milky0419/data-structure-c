@@ -42,4 +42,3 @@ void ll_print(const LLP* list);
 void ll_free(LLP* list);
 
 #endif
-
