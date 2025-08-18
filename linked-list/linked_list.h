@@ -1,4 +1,4 @@
-#ifndef LINKED_LIST_H // 중복 포함 방지 가드
+#ifndef LINKED_LIST_H // 중복 포함 방지
 #define LINKED_LIST_H
 
 /* ===== 단일 연결 리스트의 노드 ===== */
@@ -42,3 +42,4 @@ void ll_print(const LLP* list);
 void ll_free(LLP* list);
 
 #endif
+
