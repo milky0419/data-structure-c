@@ -29,7 +29,7 @@ static LLNode* ll_new_node(int value) {
 /* ===== 불변식 검사(추가 기능) ===== */
 // 빈 리스트일 때 head==NULL && tail==NULL인지 검사
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
-static void ll_check_invariants(const LLP* list) {
+void ll_check_invariants(const LLP* list) {
     if (!list) { // 리스트가 없을 때
         printf("invariant failed: list is NULL\n");
         return; // 함수 종료
@@ -205,3 +205,4 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
