@@ -31,7 +31,7 @@ static LLNode* ll_new_node(int value) {
 // 빈 리스트가 아닐 때 tail이 마지막 노드이고, tail->next==NULL인지 검사
 void ll_check_invariants(const LLP* list) {
     if (!list) { // 리스트가 없을 때
-        printf("invariant failed: list deos not exist\n");
+        printf("invariant failed: list does not exist\n");
         return; // 함수 종료
     }
 
@@ -46,16 +46,17 @@ void ll_check_invariants(const LLP* list) {
     const LLNode* cur = list->head;
     while (cur->next) // 마지막 노드에 도달할 때까지 반복
         cur = cur->next;
-    if (cur != list->tail)
+    if (cur != list->tail) {
         printf("invariant failed: tail is not last (tail=%p, last=%p)\n", list->tail, cur);
+    }
     if (list->tail->next != NULL)
         printf("invariant failed: tail->next must be NULL\n");
 }
 
 /* ===== 리스트가 비어있는지 확인 ===== */
 int ll_is_empty(const LLP* list) {
-    if (!list)
-        return 1; // NULL이면 비어있다고 간주
+    if (!list) // 리스트가 존재하지 않으면
+        return 1; // 비어있다고 간주
     return (list->head == NULL) ? 1 : 0;
 }
 
@@ -108,7 +109,7 @@ int ll_pop_front(LLP* list, int* out) {
 
     LLNode* first = list->head;
     if (out)
-        *out = first->data;
+        *out = first->data; // 삭제된 값 반환 (main.c에서 쓰임)
     list->head = first->next;
 
     if (list->head == NULL) // 리스트가 비면
@@ -128,7 +129,7 @@ int ll_pop_back(LLP* list, int* out) {
     // 노드가 한 개일 때: ll_pop_front와 비슷하게 실행
     if (list->head == list->tail) {
         if (out)
-            *out = list->head->data;
+            *out = list->head->data; // 삭제된 값 반환 (main.c에서 쓰임)
 
         free(list->head);
         list->head = list->tail = NULL;
@@ -142,7 +143,7 @@ int ll_pop_back(LLP* list, int* out) {
     while (cur->next != list->tail)
         cur = cur->next;
     if (out)
-        *out = list->tail->data;
+        *out = list->tail->data; // 삭제된 값 반환 (main.c에서 쓰임)
 
     free(list->tail);
 
@@ -154,7 +155,7 @@ int ll_pop_back(LLP* list, int* out) {
 }
 
 /* ===== 값 탐색 ===== */
-// 찾으면 노드 포인터, 못 찾으면 NULL 반환
+/* 값 탐색: 찾으면 노드 포인터, 못 찾으면 NULL 반환 */
 LLNode* ll_find(const LLP* list, int target) {
     if (ll_is_empty(list))
         return NULL; // 실패
@@ -176,6 +177,7 @@ void ll_print(const LLP* list) {
     }
 
     LLNode* cur = list->head;
+    printf("[ ");
     while (cur) {
         printf("%d", cur->data);
         if (cur->next) {
@@ -183,7 +185,7 @@ void ll_print(const LLP* list) {
         }
         cur = cur->next;
     }
-    printf("\n");
+    printf(" ]\n");
 }
 
 /* ===== 메모리 해제 ===== */
@@ -202,6 +204,3 @@ void ll_free(LLP* list) {
     list->head = NULL;
     list->tail = NULL;
 }
-
-
-
