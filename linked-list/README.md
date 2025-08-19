@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/21845306/README.ll.md)
+[README(ll).md](https://github.com/user-attachments/files/21853941/README.ll.md)
 # 단일 연결 리스트 (Linked List)
 
 ## 개념
@@ -166,6 +166,48 @@ while (NULL != p_head) { // 시작 노드부터 마지막 노드까지 이동하
 }
 p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_tail 값도 NULL로 변경함 
 ```
+
+(연결 리스트 구현 방법 출처: Do it! C언어 입문)
+
+### 연결 리스트의 주요 기능 및 구현 방법
+
+#### 1. 맨 처음에 삽입
+
+![](https://blog.kakaocdn.net/dna/ZeIoN/btrrEUMfQs3/AAAAAAAAAAAAAAAAAAAAACHzI_4KOyGczzHwTONVUlvdtKrxJn-zNf7KqkH8870v/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1756652399&allow_ip=&allow_referer=&signature=V5a9U079dIYzYQ8o2tRR0dKfv6s%3D)
+
+- head->link가 newNode를 가리키게 한 다음,
+  
+  원래 head->link가 가리키던 노드는 newNode->link가 가리키게 하기
+
+#### 2. 맨 뒤에 삽입
+
+![](https://blog.kakaocdn.net/dna/GfB3z/btrrxY3Guem/AAAAAAAAAAAAAAAAAAAAAHs6jrOEV4g9sp3ZQfjVWnDqPGV-R5FTd2gh_ECTIcLk/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1756652399&allow_ip=&allow_referer=&signature=ezoigo37PL80T83zNWZhRv8eanc%3D)
+
+- 원래 temp->link가 가리키던 노드를 newNode로 변경하고,
+  
+  newNode->link의 값을 NULL로 만들기
+
+#### 3. 맨 앞 삭제
+
+![](https://blog.kakaocdn.net/dna/pKbms/btrrr4JXsBl/AAAAAAAAAAAAAAAAAAAAAAtrb-wesIChZco7yvnRlAOaW1US-hgMl_qOuB1WSlmo/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1756652399&allow_ip=&allow_referer=&signature=2fYOXQg7XDwKmJdqTWhrysaRpAM%3D)
+
+- head->link가 가리키는 첫 번째 노드를 deleteNode라 할 떄
+  
+  deleteNode->link가 가리키는 노드를 head->link가 가리키게 한 다음,
+  
+  deleteNode 삭제
+
+#### 4. 맨 뒤 삭제
+
+![](https://blog.kakaocdn.net/dna/ZhXJK/btrrDxqr333/AAAAAAAAAAAAAAAAAAAAABQJqCzA3BteDy4REUQ4nj1RDygRWyUEZyR0A9zwAfdR/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1756652399&allow_ip=&allow_referer=&signature=yikGvHAy3XsuDwjmg%2Bx73mmEzio%3D)
+
+- 삭제하고자 하는 노드를 temp로 만든 뒤,
+  
+  temp 노드를 가리키던 current->link를 NULL로 만들고,
+  
+  temp 노드 삭제
+
+(연결 리스트의 주요 기능 및 구현 방법 출처: [[자료구조/C++] 연결 자료구조와 연결 리스트(Linked List)](https://cocoiscat.tistory.com/31))
 
 ### 연결 리스트의 종류
 
