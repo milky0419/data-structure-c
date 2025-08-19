@@ -1,10 +1,10 @@
 #include "doubly_linked_list.h"
 #include <stdio.h>
-#include <stdlib.h> // malloc, free¸¦ »ç¿ëÇÏ±â À§ÇÔ
+#include <stdlib.h> // malloc, freeë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨
 
-/* ===== ¸®½ºÆ® »ý¼º ===== */
+/* ===== ë¦¬ìŠ¤íŠ¸ ìƒì„± ===== */
 
-/* ºó ¸®½ºÆ® »ý¼º */
+/* ë¹ˆ ë¦¬ìŠ¤íŠ¸ ìƒì„± */
 DLLP dll_create() {
     DLLP list;
     list.head = NULL;
@@ -13,12 +13,12 @@ DLLP dll_create() {
     return list;
 }
 
-/* »õ ³ëµå µ¿Àû »ý¼º */
+/* ìƒˆ ë…¸ë“œ ë™ì  ìƒì„± */
 static DLLNode* dll_new_node(int value) {
     DLLNode* n = (DLLNode*)malloc(sizeof(DLLNode));
 
-    if (!n) // µ¿Àû ÇÒ´ç ½ÇÆÐ ½Ã
-        return NULL; // NULL ¹ÝÈ¯
+    if (!n) // ë™ì  í• ë‹¹ ì‹¤íŒ¨ ì‹œ
+        return NULL; // NULL ë°˜í™˜
 
     n->data = value;
     n->prev = NULL;
@@ -27,31 +27,30 @@ static DLLNode* dll_new_node(int value) {
     return n;
 }
 
-/* ===== ºÒº¯½Ä °Ë»ç(Ãß°¡ ±â´É) ===== */
-// ºó ¸®½ºÆ®ÀÏ ¶§ head==NULL && tail==NULLÀÎÁö °Ë»ç
-// ºó ¸®½ºÆ®°¡ ¾Æ´Ò ¶§ head->prev==NULL && tail->next==NULLÀÎÁö °Ë»ç
-// ¾ç¹æÇâ ¿¬°áÀÌ ¿Ã¹Ù¸¥Áö °Ë»ç
-static void dll_check_invariants(const DLLP* list) {
-    if (!list) { // ¸®½ºÆ®°¡ NULLÀÏ ¶§
-        printf("invariant failed: list is NULL\n");
-        return; // ÇÔ¼ö Á¾·á
+/* ===== ë¶ˆë³€ì‹ ê²€ì‚¬(ì¶”ê°€ ê¸°ëŠ¥) ===== */
+// ë¹ˆ ë¦¬ìŠ¤íŠ¸ì¼ ë•Œ head==NULL && tail==NULLì¸ì§€ ê²€ì‚¬
+// ë¹ˆ ë¦¬ìŠ¤íŠ¸ê°€ ì•„ë‹ ë•Œ head->prev==NULL && tail->next==NULLì¸ì§€ ê²€ì‚¬
+// ì–‘ë°©í–¥ ì—°ê²°ì´ ì˜¬ë°”ë¥¸ì§€ ê²€ì‚¬
+void dll_check_invariants(const DLLP* list) {
+    if (!list) { // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ
+        printf("invariant failed: list does not exist\n");
+        return; // í•¨ìˆ˜ ì¢…ë£Œ
     }
 
-    // 1) ºó ¸®½ºÆ®ÀÏ ¶§: head/tailÀº µ¿½Ã¿¡ NULLÀÌ¾î¾ß ÇÔ
+    // 1) ë¹ˆ ë¦¬ìŠ¤íŠ¸ì¼ ë•Œ: head/tailì€ ë™ì‹œì— NULLì´ì–´ì•¼ í•¨
     if (list->head == NULL || list->tail == NULL) {
         if (!(list->head == NULL && list->tail == NULL))
-            printf("invariant failed: only one of head/tail is NULL (head=%p, tail=%p)\n",
-                (void*)list->head, (void*)list->tail);
-        return; // ºó ¸®½ºÆ®¸é Ãß°¡ °Ë»ç ºÒÇÊ¿ä
+            printf("invariant failed: only one of head/tail is NULL (head=%p, tail=%p)\n", list->head, list->tail);
+        return; // ë¹ˆ ë¦¬ìŠ¤íŠ¸ë©´ ì¶”ê°€ ê²€ì‚¬ ë¶ˆí•„ìš”
     }
 
-    // 2) ºó ¸®½ºÆ®°¡ ¾Æ´Ò ¶§: ¾ç ³¡ ³ëµåÀÇ °æ°è Æ÷ÀÎÅÍ °Ë»ç
+    // 2) ë¹ˆ ë¦¬ìŠ¤íŠ¸ê°€ ì•„ë‹ ë•Œ: ì–‘ ë ë…¸ë“œì˜ ê²½ê³„ í¬ì¸í„° ê²€ì‚¬
     if (list->head->prev != NULL)
         printf("invariant failed: head->prev must be NULL\n");
     if (list->tail->next != NULL)
         printf("invariant failed: tail->next must be NULL\n");
 
-    // 3) ¾ç¹æÇâ ¿¬°á ÀÏ°ü¼º °Ë»ç
+    // 3) ì–‘ë°©í–¥ ì—°ê²° ì¼ê´€ì„± ê²€ì‚¬
     DLLNode* cur = list->head;
     while (cur && cur->next) {
         if (cur->next->prev != cur) {
@@ -60,25 +59,31 @@ static void dll_check_invariants(const DLLP* list) {
         cur = cur->next;
     }
 
-    // 4) tailÀÌ ½ÇÁ¦ ¸¶Áö¸· ³ëµåÀÎÁö °Ë»ç
+    // 4) tailì´ ì‹¤ì œ ë§ˆì§€ë§‰ ë…¸ë“œì¸ì§€ ê²€ì‚¬
     if (cur != list->tail) {
-        printf("invariant failed: tail is not last (tail=%p, last=%p)\n",
-            (void*)list->tail, (void*)cur);
+        printf("invariant failed: tail is not last (tail=%p, last=%p)\n", list->tail, cur);
     }
 }
 
-/* ===== ¸Ç ¾Õ/µÚ »ðÀÔ ===== */
+/* ===== ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ìžˆëŠ”ì§€ í™•ì¸ ===== */
+int dll_is_empty(const DLLP* list) {
+    if (!list) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´
+        return 1; // ë¹„ì–´ìžˆë‹¤ê³  ê°„ì£¼
+    return (list->head == NULL) ? 1 : 0;
+}
 
-/* ¸Ç ¾Õ »ðÀÔ */
-void dll_push_front(DLLP* list, int value) {
-    if (!list) // ºó ¸®½ºÆ®ÀÏ ¶§
-        return; // ÇÔ¼ö Á¾·á
+/* ===== ë§¨ ì•ž/ë’¤ ì‚½ìž… ===== */
+
+/* ë§¨ ì•ž ì‚½ìž…: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 ë°˜í™˜ */
+int dll_push_front(DLLP* list, int value) {
+    if (!list) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´
+        return 0; // ì‹¤íŒ¨
 
     DLLNode* n = dll_new_node(value);
-    if (!n) // ¸Þ¸ð¸® ºÎÁ· ½Ã
-        return;
+    if (!n) // ë©”ëª¨ë¦¬ ë¶€ì¡± ì‹œ
+        return 0; // ì‹¤íŒ¨
 
-    if (!list->head) { // ºó ¸®½ºÆ®ÀÏ ¶§
+    if (!list->head) { // ë¹ˆ ë¦¬ìŠ¤íŠ¸ì¼ ë•Œ
         list->head = list->tail = n;
     }
     else {
@@ -87,19 +92,20 @@ void dll_push_front(DLLP* list, int value) {
         list->head = n;
     }
 
-    dll_check_invariants(list); // ºÒº¯½Ä °Ë»ç
+    dll_check_invariants(list); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
 }
 
-/* ¸Ç µÚ »ðÀÔ */
-void dll_push_back(DLLP* list, int value) {
-    if (!list) // ºó ¸®½ºÆ®ÀÏ ¶§
-        return;
+/* ë§¨ ë’¤ ì‚½ìž…: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 ë°˜í™˜ */
+int dll_push_back(DLLP* list, int value) {
+    if (!list) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ
+        return 0; // ì‹¤íŒ¨
 
     DLLNode* n = dll_new_node(value);
-    if (!n) // ¸Þ¸ð¸® ºÎÁ· ½Ã
-        return;
+    if (!n) // ë©”ëª¨ë¦¬ ë¶€ì¡± ì‹œ
+        return 0; // ì‹¤íŒ¨
 
-    if (!list->tail) { // ºó ¸®½ºÆ®ÀÏ ¶§
+    if (!list->tail) { // ë¹ˆ ë¦¬ìŠ¤íŠ¸ì¼ ë•Œ
         list->head = list->tail = n;
     }
     else {
@@ -108,21 +114,22 @@ void dll_push_back(DLLP* list, int value) {
         list->tail = n;
     }
 
-    dll_check_invariants(list); // ºÒº¯½Ä °Ë»ç
+    dll_check_invariants(list); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
 }
 
-/* ===== ¸Ç ¾Õ/µÚ »èÁ¦ ===== */
+/* ===== ë§¨ ì•ž/ë’¤ ì‚­ì œ ===== */
 
-/* ¸Ç ¾Õ »èÁ¦: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
+/* ë§¨ ì•ž ì‚­ì œ: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 ë°˜í™˜ */
 int dll_pop_front(DLLP* list, int* out) {
-    if (!list || !list->head)
-        return 0; // ½ÇÆÐ
+    if (!list || dll_is_empty(list)) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šê±°ë‚˜ ë¹„ì—ˆì„ ë•Œ
+        return 0; // ì‹¤íŒ¨
 
     DLLNode* first = list->head;
     if (out)
         *out = first->data;
 
-    if (list->head == list->tail) { // ³ëµå°¡ ÇÏ³ªÀÏ ¶§
+    if (list->head == list->tail) { // ë…¸ë“œê°€ í•˜ë‚˜ì¼ ë•Œ
         list->head = list->tail = NULL;
     }
     else {
@@ -131,22 +138,22 @@ int dll_pop_front(DLLP* list, int* out) {
     }
 
     free(first);
-    first = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
+    first = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
 
-    dll_check_invariants(list); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
+    dll_check_invariants(list); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
 }
 
-/* ¸Ç µÚ »èÁ¦: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
+/* ë§¨ ë’¤ ì‚­ì œ: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 ë°˜í™˜ */
 int dll_pop_back(DLLP* list, int* out) {
-    if (!list || !list->tail)
-        return 0; // ½ÇÆÐ
+    if (!list || dll_is_empty(list)) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šê±°ë‚˜ ë¹„ì—ˆì„ ë•Œ
+        return 0; // ì‹¤íŒ¨
 
     DLLNode* last = list->tail;
     if (out)
         *out = last->data;
 
-    if (list->head == list->tail) { // ³ëµå°¡ ÇÏ³ªÀÏ ¶§
+    if (list->head == list->tail) { // ë…¸ë“œê°€ í•˜ë‚˜ì¼ ë•Œ
         list->head = list->tail = NULL;
     }
     else {
@@ -155,37 +162,37 @@ int dll_pop_back(DLLP* list, int* out) {
     }
 
     free(last);
-    last = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
+    last = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
 
-    dll_check_invariants(list); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
+    dll_check_invariants(list); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
 }
 
-/* ===== °ª Å½»ö ===== */
-/* °ª Å½»ö: Ã£À¸¸é ³ëµå Æ÷ÀÎÅÍ, ¸ø Ã£À¸¸é NULL ¹ÝÈ¯ */
+/* ===== ê°’ íƒìƒ‰ ===== */
+// ì°¾ìœ¼ë©´ ë…¸ë“œ í¬ì¸í„°, ëª» ì°¾ìœ¼ë©´ NULL ë°˜í™˜
 DLLNode* dll_find(const DLLP* list, int target) {
-    if (!list || !list->head)
-        return NULL; // ½ÇÆÐ
+    if (!list || dll_is_empty(list)) // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šê±°ë‚˜ ë¹„ì—ˆì„ ë•Œ
+        return NULL; // ì‹¤íŒ¨
 
     DLLNode* cur = list->head;
     while (cur) {
         if (cur->data == target)
-            return cur; // Ã£À½
+            return cur; // ì°¾ìŒ
         cur = cur->next;
     }
-    return NULL; // ¸ø Ã£À½
+    return NULL; // ëª» ì°¾ìŒ
 }
 
-/* ===== Ãâ·Â ===== */
+/* ===== ì¶œë ¥ ===== */
 
-/* ¾Õ¿¡¼­ µÚ·Î Ãâ·Â */
+/* ì•žì—ì„œ ë’¤ë¡œ ì¶œë ¥ */
 void dll_print_forward(const DLLP* list) {
-    if (!list || !list->head) {
-        printf("¸®½ºÆ®°¡ ºñ¾îÀÖ½À´Ï´Ù (¾Õ¡æµÚ)\n");
+    if (!list || dll_is_empty(list)) { // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šê±°ë‚˜ ë¹„ì—ˆì„ ë•Œ
+        printf("ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤ (ì•žâ†’ë’¤)\n");
         return;
     }
 
-    printf("¾Õ¡æµÚ: ");
+    printf("ì•žâ†’ë’¤: [ ");
     DLLNode* cur = list->head;
     while (cur) {
         printf("%d", cur->data);
@@ -194,17 +201,17 @@ void dll_print_forward(const DLLP* list) {
         }
         cur = cur->next;
     }
-    printf(" -> NULL\n");
+    printf(" ]\n");
 }
 
-/* µÚ¿¡¼­ ¾ÕÀ¸·Î Ãâ·Â */
+/* ë’¤ì—ì„œ ì•žìœ¼ë¡œ ì¶œë ¥ */
 void dll_print_backward(const DLLP* list) {
-    if (!list || !list->tail) {
-        printf("¸®½ºÆ®°¡ ºñ¾îÀÖ½À´Ï´Ù (µÚ¡æ¾Õ)\n");
+    if (!list || dll_is_empty(list)) { // ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•˜ì§€ ì•Šê±°ë‚˜ ë¹„ì—ˆì„ ë•Œ
+        printf("ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤ (ë’¤â†’ì•ž)\n");
         return;
     }
 
-    printf("µÚ¡æ¾Õ: ");
+    printf("ë’¤â†’ì•ž: [ ");
     DLLNode* cur = list->tail;
     while (cur) {
         printf("%d", cur->data);
@@ -213,10 +220,10 @@ void dll_print_backward(const DLLP* list) {
         }
         cur = cur->prev;
     }
-    printf(" -> NULL\n");
+    printf(" ]\n");
 }
 
-/* ===== ¸Þ¸ð¸® ÇØÁ¦ ===== */
+/* ===== ë©”ëª¨ë¦¬ í•´ì œ ===== */
 void dll_free(DLLP* list) {
     if (!list)
         return;
@@ -226,16 +233,9 @@ void dll_free(DLLP* list) {
         DLLNode* temp = cur;
         cur = cur->next;
         free(temp);
-        temp = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
+        temp = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
     }
 
     list->head = NULL;
     list->tail = NULL;
-}
-
-/* ===== ¸®½ºÆ®°¡ ºñ¾îÀÖ´ÂÁö È®ÀÎ ===== */
-int dll_is_empty(const DLLP* list) {
-    if (!list)
-        return 1; // NULLÀÌ¸é ºñ¾îÀÖ´Ù°í °£ÁÖ
-    return (list->head == NULL) ? 1 : 0;
 }
