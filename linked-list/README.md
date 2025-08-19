@@ -1,4 +1,4 @@
-[README(ll).md](https://github.com/user-attachments/files/21853941/README.ll.md)
+[README.md](https://github.com/user-attachments/files/21853941/README.ll.md)
 # 단일 연결 리스트 (Linked List)
 
 ## 개념
@@ -353,3 +353,4 @@ p_tail = p_head; // 반복문을 빠져나오면 p_head 값은 NULL이므로 p_t
 - `ll_push_front(NULL, 10)`, `ll_push_back(NULL, 10)` 테스트
 - `ll_pop_front(NULL, &value)`, `ll_pop_back(NULL, &value)` 테스트
 - `ll_print(NULL)` 테스트
+
