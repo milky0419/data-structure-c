@@ -2,200 +2,218 @@
 #include "doubly_linked_list.h"
 
 int main() {
-    printf("===== ÀÌÁß ¿¬°á ¸®½ºÆ® Å×½ºÆ® ½ÃÀÛ =====\n\n");
+    printf("===== ì´ì¤‘ ì—°ê²° ë¦¬ìŠ¤íŠ¸ í…ŒìŠ¤íŠ¸ ì‹œì‘ =====\n\n");
 
-    // 1. ¸®½ºÆ® »ı¼º Å×½ºÆ®
-    printf("1. ¸®½ºÆ® »ı¼º Å×½ºÆ®\n");
+    /* 1. ë¦¬ìŠ¤íŠ¸ ìƒì„± í…ŒìŠ¤íŠ¸ */
+    printf("1. ë¦¬ìŠ¤íŠ¸ ìƒì„± í…ŒìŠ¤íŠ¸\n");
     DLLP list = dll_create();
-    printf("¸®½ºÆ® »ı¼º ¼º°ø!\n");
-    printf("ÃÊ±â »óÅÂ: ");
+    printf("ë¦¬ìŠ¤íŠ¸ ìƒì„± ì„±ê³µ!\n");
+    printf("ì´ˆê¸° ìƒíƒœ: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", dll_is_empty(&list) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
+    printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", dll_is_empty(&list) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
+    
     printf("\n");
 
-    // 2. ¸Ç ¾Õ »ğÀÔ Å×½ºÆ®
-    printf("2. ¸Ç ¾Õ »ğÀÔ Å×½ºÆ®\n");
+    /* 2. ë§¨ ì• ì‚½ì… í…ŒìŠ¤íŠ¸ */
+    printf("2. ë§¨ ì• ì‚½ì… í…ŒìŠ¤íŠ¸\n");
     dll_push_front(&list, 10);
-    printf("10 »ğÀÔ ÈÄ: ");
+    printf("10 ì‚½ì… í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
 
     dll_push_front(&list, 20);
-    printf("20 »ğÀÔ ÈÄ: ");
+    printf("20 ì‚½ì… í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
+    
     printf("\n");
 
-    // 3. ¸Ç µÚ »ğÀÔ Å×½ºÆ®
-    printf("3. ¸Ç µÚ »ğÀÔ Å×½ºÆ®\n");
+    /* 3. ë§¨ ë’¤ ì‚½ì… í…ŒìŠ¤íŠ¸ */
+    printf("3. ë§¨ ë’¤ ì‚½ì… í…ŒìŠ¤íŠ¸\n");
     dll_push_back(&list, 5);
-    printf("5 »ğÀÔ ÈÄ: ");
+    printf("5 ì‚½ì… í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
 
     dll_push_back(&list, 1);
-    printf("1 »ğÀÔ ÈÄ: ");
+    printf("1 ì‚½ì… í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
+    
     printf("\n");
 
-    // 4. °ª Å½»ö Å×½ºÆ®
-    printf("4. °ª Å½»ö Å×½ºÆ®\n");
+    /* 4. ê°’ íƒìƒ‰ í…ŒìŠ¤íŠ¸ */
+    printf("4. ê°’ íƒìƒ‰ í…ŒìŠ¤íŠ¸\n");
     DLLNode* found = dll_find(&list, 10);
-    printf("10 Å½»ö: %s\n", found ? "Ã£À½" : "¸ø Ã£À½");
+    printf("10 íƒìƒ‰: %s\n", found ? "ì°¾ìŒ" : "ëª» ì°¾ìŒ");
 
     found = dll_find(&list, 5);
-    printf("5 Å½»ö: %s\n", found ? "Ã£À½" : "¸ø Ã£À½");
+    printf("5 íƒìƒ‰: %s\n", found ? "ì°¾ìŒ" : "ëª» ì°¾ìŒ");
 
     found = dll_find(&list, 100);
-    printf("100 Å½»ö: %s\n", found ? "Ã£À½" : "¸ø Ã£À½");
+    printf("100 íƒìƒ‰: %s\n", found ? "ì°¾ìŒ" : "ëª» ì°¾ìŒ");
+    
     printf("\n");
 
-    // 5. ¸Ç ¾Õ »èÁ¦ Å×½ºÆ®
-    printf("5. ¸Ç ¾Õ »èÁ¦ Å×½ºÆ®\n");
-    printf("ÇöÀç ¸®½ºÆ®: ");
+    /* 5. ë§¨ ì• ì‚­ì œ í…ŒìŠ¤íŠ¸ */
+    printf("5. ë§¨ ì• ì‚­ì œ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ ë¦¬ìŠ¤íŠ¸: \n");
     dll_print_forward(&list);
+    dll_print_backward(&list);
 
     int deleted_value;
     int result = dll_pop_front(&list, &deleted_value);
     if (result) {
-        printf("»èÁ¦µÈ °ª: %d\n", deleted_value);
-        printf("»èÁ¦ ÈÄ: ");
+        printf("ì‚­ì œëœ ê°’: %d\n", deleted_value);
+        printf("ì‚­ì œ í›„: \n");
         dll_print_forward(&list);
         dll_print_backward(&list);
     }
     else {
-        printf("»èÁ¦ ½ÇÆĞ\n");
+        printf("ì‚­ì œ ì‹¤íŒ¨\n");
     }
+    
     printf("\n");
 
-    // 6. ¸Ç µÚ »èÁ¦ Å×½ºÆ®
-    printf("6. ¸Ç µÚ »èÁ¦ Å×½ºÆ®\n");
-    printf("ÇöÀç ¸®½ºÆ®: ");
+    /* 6. ë§¨ ë’¤ ì‚­ì œ í…ŒìŠ¤íŠ¸ */
+    printf("6. ë§¨ ë’¤ ì‚­ì œ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ ë¦¬ìŠ¤íŠ¸: ");
     dll_print_forward(&list);
 
     result = dll_pop_back(&list, &deleted_value);
     if (result) {
-        printf("»èÁ¦µÈ °ª: %d\n", deleted_value);
-        printf("»èÁ¦ ÈÄ: ");
+        printf("ì‚­ì œëœ ê°’: %d\n", deleted_value);
+        printf("ì‚­ì œ í›„: \n");
         dll_print_forward(&list);
         dll_print_backward(&list);
     }
     else {
-        printf("»èÁ¦ ½ÇÆĞ\n");
+        printf("ì‚­ì œ ì‹¤íŒ¨\n");
     }
+    
     printf("\n");
 
-    // 7. ¾ç¹æÇâ Ãâ·Â ÁıÁß Å×½ºÆ®
-    printf("7. ¾ç¹æÇâ Ãâ·Â ÁıÁß Å×½ºÆ®\n");
-    // ´õ ¸¹Àº µ¥ÀÌÅÍ Ãß°¡
+    /* 7. ì–‘ë°©í–¥ ì¶œë ¥ ì§‘ì¤‘ í…ŒìŠ¤íŠ¸ */
+    printf("7. ì–‘ë°©í–¥ ì¶œë ¥ ì§‘ì¤‘ í…ŒìŠ¤íŠ¸\n");
+    // ë” ë§ì€ ë°ì´í„° ì¶”ê°€
     dll_push_back(&list, 100);
     dll_push_back(&list, 200);
     dll_push_front(&list, 50);
-    printf("50, 100, 200 Ãß°¡ ÈÄ:\n");
+    printf("ì•ì— 50, ë’¤ì— 100ê³¼ 200 ì¶”ê°€ í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
+    
     printf("\n");
 
-    // 8. °æ°è Á¶°Ç Å×½ºÆ® - ¸ğµç ¿ä¼Ò »èÁ¦
-    printf("8. °æ°è Á¶°Ç Å×½ºÆ® - ¸ğµç ¿ä¼Ò »èÁ¦\n");
-    printf("ÇöÀç ¸®½ºÆ®: ");
+    /* 8. ê²½ê³„ ì¡°ê±´ í…ŒìŠ¤íŠ¸ - ëª¨ë“  ìš”ì†Œ ì‚­ì œ */
+    printf("8. ê²½ê³„ ì¡°ê±´ í…ŒìŠ¤íŠ¸ - ëª¨ë“  ìš”ì†Œ ì‚­ì œ\n");
+    printf("í˜„ì¬ ë¦¬ìŠ¤íŠ¸: ");
     dll_print_forward(&list);
 
     while (!dll_is_empty(&list)) {
         result = dll_pop_front(&list, &deleted_value);
         if (result) {
-            printf("»èÁ¦µÈ °ª: %d\n", deleted_value);
+            printf("ì‚­ì œëœ ê°’: %d\n", deleted_value);
             if (!dll_is_empty(&list)) {
                 dll_print_forward(&list);
             }
         }
     }
-    printf("¸ğµç ¿ä¼Ò »èÁ¦ ¿Ï·á\n");
+    printf("ëª¨ë“  ìš”ì†Œ ì‚­ì œ ì™„ë£Œ\n");
     dll_print_forward(&list);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", dll_is_empty(&list) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
+    dll_print_backward(&list);
+    printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", dll_is_empty(&list) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
+    
     printf("\n");
 
-    // 9. ¿¡·¯ »óÈ² Å×½ºÆ® - ºó ¸®½ºÆ®¿¡¼­ »èÁ¦
-    printf("9. ¿¡·¯ »óÈ² Å×½ºÆ® - ºó ¸®½ºÆ®¿¡¼­ »èÁ¦ ½Ãµµ\n");
-    printf("ºó ¸®½ºÆ®¿¡¼­ ¸Ç ¾Õ »èÁ¦ ½Ãµµ:\n");
+    /* 9. ì—ëŸ¬ ìƒí™© í…ŒìŠ¤íŠ¸ - ë¹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œ */
+    printf("9. ì—ëŸ¬ ìƒí™© í…ŒìŠ¤íŠ¸ - ë¹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œ ì‹œë„\n");
+    printf("ë¹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë§¨ ì• ì‚­ì œ ì‹œë„:\n");
     result = dll_pop_front(&list, &deleted_value);
-    printf("°á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
-    printf("ºó ¸®½ºÆ®¿¡¼­ ¸Ç µÚ »èÁ¦ ½Ãµµ:\n");
+    printf("ë¹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë§¨ ë’¤ ì‚­ì œ ì‹œë„:\n");
     result = dll_pop_back(&list, &deleted_value);
-    printf("°á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    
     printf("\n");
 
-    // 10. ´ÜÀÏ ³ëµå Å×½ºÆ®
-    printf("10. ´ÜÀÏ ³ëµå Å×½ºÆ®\n");
+    /* 10. ë‹¨ì¼ ë…¸ë“œ í…ŒìŠ¤íŠ¸ */
+    printf("10. ë‹¨ì¼ ë…¸ë“œ í…ŒìŠ¤íŠ¸\n");
     dll_push_front(&list, 99);
-    printf("´ÜÀÏ ³ëµå »ğÀÔ ÈÄ: ");
+    printf("ë‹¨ì¼ ë…¸ë“œ ì‚½ì… í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
 
     result = dll_pop_back(&list, &deleted_value);
     if (result) {
-        printf("´ÜÀÏ ³ëµå »èÁ¦: %d\n", deleted_value);
+        printf("ë‹¨ì¼ ë…¸ë“œ ì‚­ì œ: %d\n", deleted_value);
         dll_print_forward(&list);
         dll_print_backward(&list);
     }
+    
     printf("\n");
 
-    // 11. ÀÌÁß ¿¬°á Æ¯¼º Å×½ºÆ®
-    printf("11. ÀÌÁß ¿¬°á Æ¯¼º ÁıÁß Å×½ºÆ®\n");
-    // ¾ÕµÚ »ğÀÔÀ» ¼¯¾î¼­ Å×½ºÆ®
+    /* 11. ì´ì¤‘ ì—°ê²° íŠ¹ì„± í…ŒìŠ¤íŠ¸ */
+    printf("11. ì´ì¤‘ ì—°ê²° íŠ¹ì„± ì§‘ì¤‘ í…ŒìŠ¤íŠ¸\n");
+    // ì•ë’¤ ì‚½ì…ì„ ì„ì–´ì„œ í…ŒìŠ¤íŠ¸
     dll_push_front(&list, 30);
     dll_push_back(&list, 40);
     dll_push_front(&list, 20);
     dll_push_back(&list, 50);
     dll_push_front(&list, 10);
-
-    printf("¾ÕµÚ »ğÀÔ È¥ÇÕ ÈÄ:\n");
+    printf("ì•/ë’¤ ì‚½ì… í˜¼í•© í›„: \n");
     dll_print_forward(&list);
     dll_print_backward(&list);
 
-    // ¾ÕµÚ »èÁ¦¸¦ ¼¯¾î¼­ Å×½ºÆ®
+    // ì•ë’¤ ì‚­ì œë¥¼ ì„ì–´ì„œ í…ŒìŠ¤íŠ¸
     dll_pop_front(&list, &deleted_value);
-    printf("¾Õ »èÁ¦(%d) ÈÄ: ", deleted_value);
+    printf("ì• ì‚­ì œ(%d) í›„: \n", deleted_value);
     dll_print_forward(&list);
+    dll_print_backward(&list);
 
     dll_pop_back(&list, &deleted_value);
-    printf("µÚ »èÁ¦(%d) ÈÄ: ", deleted_value);
+    printf("ë’¤ ì‚­ì œ(%d) í›„: \n", deleted_value);
     dll_print_forward(&list);
     dll_print_backward(&list);
+    
     printf("\n");
 
-    // 12. ºÒº¯½Ä °Ë»ç Å×½ºÆ®
-    printf("12. ºÒº¯½Ä °Ë»ç Å×½ºÆ®\n");
-    printf("ÇöÀç ¸®½ºÆ®: ");
+    /* 12. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸ */
+    printf("12. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ ë¦¬ìŠ¤íŠ¸: \n");
     dll_print_forward(&list);
-    printf("ºÒº¯½Ä °Ë»ç ½ÇÇà Áß...\n");
-    // ºÒº¯½Ä °Ë»ç´Â °¢ »ğÀÔ/»èÁ¦ ¿¬»ê ÈÄ ÀÚµ¿À¸·Î ½ÇÇàµÊ
-    printf("ºÒº¯½Ä °Ë»ç ¿Ï·á (¿¡·¯ ¸Ş½ÃÁö°¡ ¾øÀ¸¸é Á¤»ó)\n");
+    dll_print_backward(&list);
+    printf("ë¶ˆë³€ì‹ ê²€ì‚¬ ì‹¤í–‰ ì¤‘...\n");
+    // ë¶ˆë³€ì‹ ê²€ì‚¬ëŠ” ê° ì‚½ì…/ì‚­ì œ ì—°ì‚° í›„ ìë™ìœ¼ë¡œ ì‹¤í–‰ë¨
+    printf("ë¶ˆë³€ì‹ ê²€ì‚¬ ì™„ë£Œ (ì—ëŸ¬ ë©”ì‹œì§€ê°€ ì—†ìœ¼ë©´ ì •ìƒ)\n");
+    
     printf("\n");
 
-    // 13. ¸Ş¸ğ¸® ÇØÁ¦
-    printf("13. ¸Ş¸ğ¸® ÇØÁ¦\n");
+    /* 13. ë©”ëª¨ë¦¬ í•´ì œ */
+    printf("13. ë©”ëª¨ë¦¬ í•´ì œ\n");
     dll_free(&list);
-    printf("¸®½ºÆ® ¸Ş¸ğ¸® ÇØÁ¦ ¿Ï·á\n");
+    printf("ë¦¬ìŠ¤íŠ¸ ë©”ëª¨ë¦¬ í•´ì œ ì™„ë£Œ\n");
     dll_print_forward(&list);
     dll_print_backward(&list);
+    
     printf("\n");
 
-    // 14. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®
-    printf("14. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®\n");
+    /* 14. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸ */
+    printf("14. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸\n");
     dll_push_front(NULL, 10);
     dll_push_back(NULL, 10);
     result = dll_pop_front(NULL, &deleted_value);
-    printf("NULL ¸®½ºÆ®¿¡¼­ pop_front °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    
+    printf("NULL ë¦¬ìŠ¤íŠ¸ì—ì„œ pop_front ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     result = dll_pop_back(NULL, &deleted_value);
-    printf("NULL ¸®½ºÆ®¿¡¼­ pop_back °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("NULL ë¦¬ìŠ¤íŠ¸ì—ì„œ pop_back ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    
     dll_print_forward(NULL);
     dll_print_backward(NULL);
-    printf("NULL Æ÷ÀÎÅÍ Å×½ºÆ® ¿Ï·á\n");
+    printf("NULL í¬ì¸í„° í…ŒìŠ¤íŠ¸ ì™„ë£Œ\n");
 
-    printf("\n===== ÀÌÁß ¿¬°á ¸®½ºÆ® Å×½ºÆ® ¿Ï·á =====\n");
+    printf("\n===== ì´ì¤‘ ì—°ê²° ë¦¬ìŠ¤íŠ¸ í…ŒìŠ¤íŠ¸ ì™„ë£Œ =====\n");
     return 0;
 }
