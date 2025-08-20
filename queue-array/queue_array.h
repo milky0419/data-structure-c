@@ -1,4 +1,4 @@
-﻿#ifndef QUEUE_ARRAY_H // 중복 포함 방지 가드
+#ifndef QUEUE_ARRAY_H // 중복 포함 방지 가드
 #define QUEUE_ARRAY_H
 
 #define QUEUE_MAX_SIZE 10 // 큐 최대 크기 정의
@@ -23,14 +23,14 @@ QAP qa_create(); // 새로운 큐 생성 및 초기화
 // 원형 큐의 상태 일관성 검사
 static void qa_check_invariants(const QAP queue);
 
-/* ===== 큐 기본 연산 ===== */
-int qa_enqueue(QAP queue, int value); // 데이터 삽입: 성공 시 1, 실패 시 0
-int qa_dequeue(QAP queue, int* out); // 데이터 제거 및 반환: 성공 시 1, 실패 시 0
-
 /* ===== 큐 상태 확인 ===== */
 int qa_is_empty(const QAP queue); // 비어 있으면 1, 아니면 0
 int qa_is_full(const QAP queue); // 가득 차면 1, 아니면 0
 int qa_size(const QAP queue); // 현재 큐에 저장된 요소 개수 반환
+
+/* ===== 큐 기본 연산 ===== */
+int qa_enqueue(QAP queue, int value); // 데이터 삽입: 성공 시 1, 실패 시 0
+int qa_dequeue(QAP queue, int* out); // 데이터 제거 및 반환: 성공 시 1, 실패 시 0
 
 /* ===== 큐 출력 ===== */
 void qa_print(const QAP queue); // 큐 내용 출력 (front -> rear 순서)
