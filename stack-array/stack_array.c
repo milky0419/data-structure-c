@@ -147,14 +147,14 @@ void sa_print(const SAP stack) {
         return;
     }
 
-    printf("스택 [bottom -> top]: ");
+    printf("스택 [bottom -> top]: [ ");
     for (int i = 0; i <= stack->top; i++) {
         printf("%d", stack->data[i]);
         if (i < stack->top) {
             printf(" -> ");
         }
     }
-    printf(" (top)\n");
+    printf(" ] (top)\n");
     printf("크기: %d/%d\n", sa_size(stack), stack->capacity);
 }
 
