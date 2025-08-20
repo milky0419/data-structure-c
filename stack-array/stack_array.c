@@ -20,7 +20,7 @@ SAP sa_create() {
 /* ===== 불변식 검사(추가 기능) ===== */
 // top이 유효한 범위에 있는지 검사
 // 스택 상태의 일관성 검사
-static void sa_check_invariants(const SAP stack) {
+void sa_check_invariants(const SAP stack) {
     if (!stack) { // 스택이 NULL일 때
         printf("invariant failed: stack is NULL\n");
         return;
