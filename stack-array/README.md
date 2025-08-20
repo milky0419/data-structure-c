@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/21887361/README.sa.md)
+[README.md](https://github.com/user-attachments/files/21891091/README.sa.md)
 # 배열 기반 스택 (Stack-Array)
 
 ## 개념
@@ -111,7 +111,6 @@ typedef struct {
 
 - 빈 스택에서 pop 시도
 - 빈 스택에서 peek 시도
-- 언더플로우 상황에서 실패 처리 확인
 
 ### 10. LIFO 특성 테스트
 
@@ -122,7 +121,6 @@ typedef struct {
 
 - 몇 개 요소 추가 후 불변식 검사
 - 모든 push/pop 연산 후 `sa_check_invariants()` 자동 실행
-- top 인덱스 유효성 검증
 - 에러 메시지가 없으면 데이터 구조가 올바르게 유지됨을 확인
 
 ### 12. 메모리 해제 테스트
