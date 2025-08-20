@@ -1,13 +1,13 @@
-[README.md](https://github.com/user-attachments/files/21773614/README.qa.md)
+[README.md](https://github.com/user-attachments/files/21899524/README.qa.md)
 # 배열 기반 큐 (Queue-Array)
 
 ## 개념
 
 ### 1. 큐(queue)란?
 
-- 선입선출(FIFO, First In First Out) 구조
+- **선입선출(FIFO, First In First Out)**의 자료 구조
 
-### 2. 주요 연산
+### 2. 주요 기능
 
 - **enqueue**: 데이터 삽입 (뒤쪽에 넣음)
 
@@ -42,14 +42,14 @@ typedef struct {
 ## 구현된 기능
 
 - 새로운 큐 생성 및 초기화: `qa_create()`
-- 데이터 삽입: `qa_enqueue()`
-- 데이터 제거 및 반환: `qa_dequeue()`
+- front, rear, size 유효성과 원형 큐 상태 검증 (자동 실행): `qa_check_invariants()`
 - 비어 있는지 확인: `qa_is_empty()`
 - 가득 찼는지 확인: `qa_is_full()`
 - 현재 저장된 요소 개수 반환: `qa_size()`
+- 데이터 삽입: `qa_enqueue()`
+- 데이터 제거 및 반환: `qa_dequeue()`
 - 큐 내용 출력 (front -> rear 순서): `qa_print()`
 - 큐 구조체 해제: `qa_free()`
-- front, rear, size 유효성과 원형 큐 상태 검증 (자동 실행): `qa_check_invariants()`
 
 ## 테스트
 
@@ -123,19 +123,16 @@ typedef struct {
 
 - 현재 큐 상태에서 불변식 검사
 - 모든 enqueue/dequeue 연산 후 `qa_check_invariants()` 자동 실행
-- front, rear, size 인덱스 유효성 검증
+- 
 - 원형 큐 상태 일관성 확인
 - 에러 메시지가 없으면 데이터 구조가 올바르게 유지됨을 확인
 
 ### 13. 메모리 해제 테스트
 
 - `qa_free()` 함수로 큐 구조체 메모리 해제
-- 해제 후 댕글링 포인터 방지 확인
 
 ### 14. NULL 포인터 안전성 테스트
 
 - NULL 큐에 대한 모든 연산 테스트
-- `qa_enqueue(NULL, 10)`, `qa_dequeue(NULL, &value)` 안전 처리
-- `qa_print(NULL)` 적절한 메시지 출력
-
-
+- `qa_enqueue(NULL, 10)`, `qa_dequeue(NULL, &value)` 테스트
+- `qa_print(NULL)` 테스트
