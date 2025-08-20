@@ -1,39 +1,39 @@
-#ifndef QUEUE_LINKEDLIST_H // Áßº¹ Æ÷ÇÔ ¹æÁö °¡µå
+#ifndef QUEUE_LINKEDLIST_H // ì¤‘ë³µ í¬í•¨ ë°©ì§€ ê°€ë“œ
 #define QUEUE_LINKEDLIST_H
 
-/* ===== ¿¬°á ¸®½ºÆ® ±â¹Ý Å¥ÀÇ ³ëµå ===== */
+/* ===== ì—°ê²° ë¦¬ìŠ¤íŠ¸ ê¸°ë°˜ íì˜ ë…¸ë“œ ===== */
 typedef struct QLNode {
-    int data; // Á¤¼ö¸¦ ÀúÀåÇÒ º¯¼ö
-    struct QLNode* next; // ´ÙÀ½ ³ëµå¸¦ °¡¸®Å³ Æ÷ÀÎÅÍ
+    int data; // ì •ìˆ˜ë¥¼ ì €ìž¥í•  ë³€ìˆ˜
+    struct QLNode* next; // ë‹¤ìŒ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¬ í¬ì¸í„°
 } QLNode;
 
-/* ===== Å¥ ÄÁÅ×ÀÌ³Ê: front¿Í rear Æ÷ÀÎÅÍ °ü¸® ===== */
+/* ===== í ì»¨í…Œì´ë„ˆ: frontì™€ rear í¬ì¸í„° ê´€ë¦¬ ===== */
 typedef struct QLP {
-    QLNode* front; // Å¥ÀÇ ¾ÕÂÊ ³ëµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ (dequeue À§Ä¡)
-    QLNode* rear; // Å¥ÀÇ µÚÂÊ ³ëµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ (enqueue À§Ä¡)
+    QLNode* front; // íì˜ ì•žìª½ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„° (dequeue ìœ„ì¹˜)
+    QLNode* rear; // íì˜ ë’¤ìª½ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„° (enqueue ìœ„ì¹˜)
 } QLP;
 
-/* ===== Å¥ »ý¼º ===== */
-QLP ql_create(); // ºó Å¥ »ý¼º ¹× ÃÊ±âÈ­
+/* ===== í ìƒì„± ===== */
+QLP ql_create(); // ë¹ˆ í ìƒì„± ë° ì´ˆê¸°í™”
 
-/* ===== ºÒº¯½Ä °Ë»ç(Ãß°¡ ±â´É) ===== */
-// ºó Å¥ÀÏ ¶§ front==NULL && rear==NULLÀÎÁö °Ë»ç
-// ºó Å¥°¡ ¾Æ´Ò ¶§ front¿Í rear°¡ ¿Ã¹Ù¸£°Ô ¿¬°áµÇ¾î ÀÖ´ÂÁö °Ë»ç
-// ´ÜÀÏ ³ëµåÀÏ ¶§ front==rearÀÎÁö °Ë»ç
+/* ===== ë¶ˆë³€ì‹ ê²€ì‚¬(ì¶”ê°€ ê¸°ëŠ¥) ===== */
+// ë¹ˆ íì¼ ë•Œ front==NULL && rear==NULLì¸ì§€ ê²€ì‚¬
+// ë¹ˆ íê°€ ì•„ë‹ ë•Œ frontì™€ rearê°€ ì˜¬ë°”ë¥´ê²Œ ì—°ê²°ë˜ì–´ ìžˆëŠ”ì§€ ê²€ì‚¬
+// ë‹¨ì¼ ë…¸ë“œì¼ ë•Œ front==rearì¸ì§€ ê²€ì‚¬
 static void ql_check_invariants(const QLP* queue);
 
-/* ===== Å¥ ±âº» ¿¬»ê ===== */
-int ql_enqueue(QLP* queue, int value); // µ¥ÀÌÅÍ »ðÀÔ: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0
-int ql_dequeue(QLP* queue, int* out); // µ¥ÀÌÅÍ Á¦°Å ¹× ¹ÝÈ¯: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0
+/* ===== í ìƒíƒœ í™•ì¸ ===== */
+int ql_is_empty(const QLP* queue); // ë¹„ì–´ ìžˆìœ¼ë©´ 1, ì•„ë‹ˆë©´ 0
+int ql_size(const QLP* queue); // í˜„ìž¬ íì— ì €ìž¥ëœ ìš”ì†Œ ê°œìˆ˜ ë°˜í™˜
 
-/* ===== Å¥ »óÅÂ È®ÀÎ ===== */
-int ql_is_empty(const QLP* queue); // ºñ¾î ÀÖÀ¸¸é 1, ¾Æ´Ï¸é 0
-int ql_size(const QLP* queue); // ÇöÀç Å¥¿¡ ÀúÀåµÈ ¿ä¼Ò °³¼ö ¹ÝÈ¯
+/* ===== í ê¸°ë³¸ ì—°ì‚° ===== */
+int ql_enqueue(QLP* queue, int value); // ë°ì´í„° ì‚½ìž…: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0
+int ql_dequeue(QLP* queue, int* out); // ë°ì´í„° ì œê±° ë° ë°˜í™˜: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0
 
-/* ===== Å¥ Ãâ·Â ===== */
-void ql_print(const QLP* queue); // Å¥ ³»¿ë Ãâ·Â (front -> rear ¼ø¼­)
+/* ===== í ì¶œë ¥ ===== */
+void ql_print(const QLP* queue); // í ë‚´ìš© ì¶œë ¥ (front -> rear ìˆœì„œ)
 
-/* ===== ¸Þ¸ð¸® ÇØÁ¦: ¸ðµç ³ëµå ÇØÁ¦ + front/rear ÃÊ±âÈ­ ===== */
+/* ===== ë©”ëª¨ë¦¬ í•´ì œ: ëª¨ë“  ë…¸ë“œ í•´ì œ + front/rear ì´ˆê¸°í™” ===== */
 void ql_free(QLP* queue);
 
 #endif
