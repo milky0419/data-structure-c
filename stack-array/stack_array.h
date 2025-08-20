@@ -19,7 +19,7 @@ SAP sa_create(); // 새로운 스택 생성 및 초기화
 /* ===== 불변식 검사(추가 기능) ===== */
 // top이 유효한 범위에 있는지 검사 (-1 <= top < capacity)
 // 스택이 비어있을 때와 가득 찰 때의 상태 검사
-static void sa_check_invariants(const SAP stack);
+void sa_check_invariants(const SAP stack);
 
 /* ===== 스택 상태 확인 ===== */
 int sa_is_empty(const SAP stack); // 비어 있으면 1, 아니면 0
