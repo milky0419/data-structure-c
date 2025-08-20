@@ -1,216 +1,183 @@
 #include <stdio.h>
-#include "stack_linkedlist.h"
+#include "stack_array.h"
 
 int main() {
-    printf("===== ¿¬°á ¸®½ºÆ® ±â¹İ ½ºÅÃ Å×½ºÆ® ½ÃÀÛ =====\n\n");
+    printf("===== ë°°ì—´ ê¸°ë°˜ ìŠ¤íƒ í…ŒìŠ¤íŠ¸ ì‹œì‘ =====\n\n");
 
-    // 1. ½ºÅÃ »ı¼º Å×½ºÆ®
-    printf("1. ½ºÅÃ »ı¼º Å×½ºÆ®\n");
-    SLP stack = sl_create();
-    printf("½ºÅÃ »ı¼º ¼º°ø!\n");
-    printf("ÃÊ±â »óÅÂ: ");
-    sl_print(&stack);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", sl_is_empty(&stack) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
-    printf("ÃÊ±â Å©±â: %d\n", sl_size(&stack));
-    printf("\n");
-
-    // 2. push ±âº» Å×½ºÆ®
-    printf("2. push ±âº» Å×½ºÆ®\n");
-    int result = sl_push(&stack, 10);
-    printf("10 push °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
-    sl_print(&stack);
-
-    result = sl_push(&stack, 20);
-    printf("20 push °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
-    sl_print(&stack);
-
-    result = sl_push(&stack, 30);
-    printf("30 push °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
-    sl_print(&stack);
-    printf("\n");
-
-    // 3. peek Å×½ºÆ®
-    printf("3. peek Å×½ºÆ®\n");
-    int peek_value;
-    result = sl_peek(&stack, &peek_value);
-    if (result) {
-        printf("peek °á°ú: %d (½ºÅÃÀº º¯°æµÇÁö ¾ÊÀ½)\n", peek_value);
-        sl_print(&stack);
+    // 1. ìŠ¤íƒ ìƒì„± í…ŒìŠ¤íŠ¸
+    printf("1. ìŠ¤íƒ ìƒì„± í…ŒìŠ¤íŠ¸\n");
+    SAP stack = sa_create();
+    if (stack) {
+        printf("ìŠ¤íƒ ìƒì„± ì„±ê³µ!\n");
+        printf("ì´ˆê¸° ìƒíƒœ: ");
+        sa_print(stack);
+        printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", sa_is_empty(stack) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
+        printf("ê°€ë“ì°¸ í™•ì¸: %s\n", sa_is_full(stack) ? "ê°€ë“ì°¸" : "ê°€ë“ì°¨ì§€ ì•ŠìŒ");
     }
     else {
-        printf("peek ½ÇÆĞ\n");
+        printf("ìŠ¤íƒ ìƒì„± ì‹¤íŒ¨!\n");
+        return 1;
     }
     printf("\n");
 
-    // 4. pop ±âº» Å×½ºÆ®
-    printf("4. pop ±âº» Å×½ºÆ®\n");
-    printf("pop Àü »óÅÂ: ");
-    sl_print(&stack);
+    // 2. push ê¸°ë³¸ í…ŒìŠ¤íŠ¸
+    printf("2. push ê¸°ë³¸ í…ŒìŠ¤íŠ¸\n");
+    int result = sa_push(stack, 10);
+    printf("10 push ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    sa_print(stack);
+
+    result = sa_push(stack, 20);
+    printf("20 push ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    sa_print(stack);
+
+    result = sa_push(stack, 30);
+    printf("30 push ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    sa_print(stack);
+    printf("\n");
+
+    // 3. peek í…ŒìŠ¤íŠ¸
+    printf("3. peek í…ŒìŠ¤íŠ¸\n");
+    int peek_value;
+    result = sa_peek(stack, &peek_value);
+    if (result) {
+        printf("peek ê²°ê³¼: %d\n", peek_value);
+        sa_print(stack);
+    }
+    else {
+        printf("peek ì‹¤íŒ¨\n");
+    }
+    printf("\n");
+
+    // 4. pop ê¸°ë³¸ í…ŒìŠ¤íŠ¸
+    printf("4. pop ê¸°ë³¸ í…ŒìŠ¤íŠ¸\n");
+    printf("pop ì „ ìƒíƒœ: ");
+    sa_print(stack);
 
     int pop_value;
-    result = sl_pop(&stack, &pop_value);
+    result = sa_pop(stack, &pop_value);
     if (result) {
-        printf("pop °á°ú: %d\n", pop_value);
-        printf("pop ÈÄ »óÅÂ: ");
-        sl_print(&stack);
+        printf("pop ê²°ê³¼: %d\n", pop_value);
+        printf("pop í›„ ìƒíƒœ: ");
+        sa_print(stack);
     }
     else {
-        printf("pop ½ÇÆĞ\n");
+        printf("pop ì‹¤íŒ¨\n");
     }
     printf("\n");
 
-    // 5. ½ºÅÃ »óÅÂ È®ÀÎ Å×½ºÆ®
-    printf("5. ½ºÅÃ »óÅÂ È®ÀÎ Å×½ºÆ®\n");
-    printf("ÇöÀç ½ºÅÃ Å©±â: %d\n", sl_size(&stack));
-    printf("ºñ¾îÀÖÀ½: %s\n", sl_is_empty(&stack) ? "¿¹" : "¾Æ´Ï¿À");
-    sl_print(&stack);
+    // 5. ìŠ¤íƒ ìƒíƒœ í™•ì¸ í…ŒìŠ¤íŠ¸
+    printf("5. ìŠ¤íƒ ìƒíƒœ í™•ì¸ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ ìŠ¤íƒ í¬ê¸°: %d\n", sa_size(stack));
+    printf("ë¹„ì–´ìˆìŒ: %s\n", sa_is_empty(stack) ? "ì˜ˆ" : "ì•„ë‹ˆì˜¤");
+    printf("ê°€ë“ì°¸: %s\n", sa_is_full(stack) ? "ì˜ˆ" : "ì•„ë‹ˆì˜¤");
+    sa_print(stack);
     printf("\n");
 
-    // 6. µ¿Àû È®Àå Å×½ºÆ® (¹è¿­°ú ´Ş¸® Å©±â Á¦ÇÑ ¾øÀ½)
-    printf("6. µ¿Àû È®Àå Å×½ºÆ®\n");
-    printf("¸¹Àº ¿ä¼Ò Ãß°¡ÇÏ±â (¹è¿­°ú ´Ş¸® Å©±â Á¦ÇÑ ¾øÀ½)...\n");
+    // 6. ìŠ¤íƒ ê°€ë“ ì°° ë•Œê¹Œì§€ push í…ŒìŠ¤íŠ¸
+    printf("6. ìŠ¤íƒ ê°€ë“ ì°° ë•Œê¹Œì§€ push í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ í¬ê¸°: %d, ìµœëŒ€ í¬ê¸°: %d\n", sa_size(stack), STACK_MAX_SIZE);
+    printf("ë‚¨ì€ ê³µê°„ì— ë°ì´í„° ì±„ìš°ê¸°...\n");
 
     int push_count = 0;
-    for (int i = 100; i <= 150; i += 5) {
-        result = sl_push(&stack, i);
+    for (int i = sa_size(stack); i < STACK_MAX_SIZE; i++) {
+        result = sa_push(stack, (i+1) * 10);
         if (result) {
             push_count++;
         }
         else {
-            printf("push ½ÇÆĞ: %d\n", i);
+            printf("push ì‹¤íŒ¨: %d\n", (i + 1) * 10);
             break;
         }
     }
-    printf("%d°³ ¿ä¼Ò Ãß°¡ ¿Ï·á\n", push_count);
-    printf("ÃÖÁ¾ Å©±â: %d\n", sl_size(&stack));
-    sl_print(&stack);
+    printf("%dê°œ ìš”ì†Œ ì¶”ê°€ ì™„ë£Œ\n", push_count);
+    printf("ìµœì¢… í¬ê¸°: %d\n", sa_size(stack));
+    printf("ê°€ë“ì°¸ í™•ì¸: %s\n", sa_is_full(stack) ? "ê°€ë“ì°¸" : "ê°€ë“ì°¨ì§€ ì•ŠìŒ");
     printf("\n");
 
-    // 7. ¸Ş¸ğ¸® ÇÒ´ç È®ÀÎ (¿¬°á ¸®½ºÆ®ÀÇ ÀåÁ¡)
-    printf("7. ¸Ş¸ğ¸® ÇÒ´ç È®ÀÎ\n");
-    printf("´õ ¸¹Àº ¿ä¼Ò Ãß°¡ ½Ãµµ...\n");
-    int large_push_count = 0;
-    for (int i = 1000; i < 1020; i++) {
-        result = sl_push(&stack, i);
-        if (result) {
-            large_push_count++;
-        }
-        else {
-            printf("¸Ş¸ğ¸® ÇÒ´ç ½ÇÆĞ: %d\n", i);
-            break;
-        }
-    }
-    printf("%d°³ Ãß°¡ ¿ä¼Ò push ¿Ï·á\n", large_push_count);
-    printf("ÃÑ Å©±â: %d\n", sl_size(&stack));
-    printf("»óÀ§ 5°³ ¿ä¼Ò¸¸ Ãâ·Â:\n");
-
-    // »óÀ§ ¸î °³¸¸ Ãâ·Â (ÀüÃ¼ Ãâ·ÂÀº ³Ê¹« ±æ¾î¼­)
-    SLNode* cur = stack.top;
-    for (int i = 0; i < 5 && cur; i++) {
-        printf("  [%d]: %d\n", i, cur->data);
-        cur = cur->next;
-    }
-    printf("  ... (ÃÑ %d°³)\n", sl_size(&stack));
+    // 7. ê°€ë“ ì°¬ ìŠ¤íƒì— push ì‹œë„ (ì˜¤ë²„í”Œë¡œìš° í…ŒìŠ¤íŠ¸)
+    printf("7. ê°€ë“ ì°¬ ìŠ¤íƒì— push ì‹œë„ (ì˜¤ë²„í”Œë¡œìš° í…ŒìŠ¤íŠ¸)\n");
+    result = sa_push(stack, 999);
+    printf("ì˜¤ë²„í”Œë¡œìš° push ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
+    printf("ìŠ¤íƒ í¬ê¸° í™•ì¸: %d\n", sa_size(stack));
     printf("\n");
 
-    // 8. ¸ğµç ¿ä¼Ò pop Å×½ºÆ®
-    printf("8. ¸ğµç ¿ä¼Ò pop Å×½ºÆ®\n");
-    printf("ÀüÃ¼ ¿ä¼Ò pop ½ÃÀÛ...\n");
+    // 8. ëª¨ë“  ìš”ì†Œ pop (ì–¸ë”í”Œë¡œìš°ê¹Œì§€)
+    printf("8. ëª¨ë“  ìš”ì†Œ pop í…ŒìŠ¤íŠ¸\n");
+    printf("ì „ì²´ ìš”ì†Œ pop ì‹œì‘...\n");
 
     int pop_count = 0;
-    while (!sl_is_empty(&stack)) {
-        result = sl_pop(&stack, &pop_value);
+    while (!sa_is_empty(stack)) {
+        result = sa_pop(stack, &pop_value);
         if (result) {
             pop_count++;
-            if (pop_count <= 5 || pop_count % 10 == 0) { // Ã³À½ 5°³¿Í 10°³¸¶´Ù Ãâ·Â
-                printf("pop[%d]: %d (³²Àº Å©±â: %d)\n", pop_count, pop_value, sl_size(&stack));
-            }
+            printf("pop[%d]: %d (ë‚¨ì€ í¬ê¸°: %d)\n", pop_count, pop_value, sa_size(stack));
         }
         else {
             break;
         }
     }
-    printf("ÃÑ %d°³ ¿ä¼Ò pop ¿Ï·á\n", pop_count);
-    printf("ÃÖÁ¾ »óÅÂ: ");
-    sl_print(&stack);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", sl_is_empty(&stack) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
+    printf("ì´ %dê°œ ìš”ì†Œ pop ì™„ë£Œ\n", pop_count);
+    printf("ìµœì¢… ìƒíƒœ: ");
+    sa_print(stack);
+    printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", sa_is_empty(stack) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
     printf("\n");
 
-    // 9. ºó ½ºÅÃ¿¡¼­ pop/peek ½Ãµµ (¾ğ´õÇÃ·Î¿ì Å×½ºÆ®)
-    printf("9. ºó ½ºÅÃ¿¡¼­ pop/peek ½Ãµµ (¾ğ´õÇÃ·Î¿ì Å×½ºÆ®)\n");
-    result = sl_pop(&stack, &pop_value);
-    printf("ºó ½ºÅÃ pop °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    // 9. ë¹ˆ ìŠ¤íƒì—ì„œ pop/peek ì‹œë„ (ì–¸ë”í”Œë¡œìš° í…ŒìŠ¤íŠ¸)
+    printf("9. ë¹ˆ ìŠ¤íƒì—ì„œ pop/peek ì‹œë„ (ì–¸ë”í”Œë¡œìš° í…ŒìŠ¤íŠ¸)\n");
+    result = sa_pop(stack, &pop_value);
+    printf("ë¹ˆ ìŠ¤íƒ pop ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
-    result = sl_peek(&stack, &peek_value);
-    printf("ºó ½ºÅÃ peek °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    result = sa_peek(stack, &peek_value);
+    printf("ë¹ˆ ìŠ¤íƒ peek ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     printf("\n");
 
-    // 10. LIFO(Last In First Out) Æ¯¼º Å×½ºÆ®
-    printf("10. LIFO Æ¯¼º Å×½ºÆ®\n");
-    printf("¼ø¼­´ë·Î push: 100, 200, 300\n");
-    sl_push(&stack, 100);
-    sl_push(&stack, 200);
-    sl_push(&stack, 300);
-    sl_print(&stack);
+    // 10. LIFO(Last In First Out) íŠ¹ì„± í…ŒìŠ¤íŠ¸
+    printf("10. LIFO íŠ¹ì„± í…ŒìŠ¤íŠ¸\n");
+    printf("ìˆœì„œëŒ€ë¡œ push: 100, 200, 300\n");
+    sa_push(stack, 100);
+    sa_push(stack, 200);
+    sa_push(stack, 300);
+    sa_print(stack);
 
-    printf("pop ¼ø¼­ È®ÀÎ:\n");
+    printf("pop ìˆœì„œ í™•ì¸:\n");
     for (int i = 0; i < 3; i++) {
-        result = sl_pop(&stack, &pop_value);
+        result = sa_pop(stack, &pop_value);
         if (result) {
             printf("pop %d: %d\n", i + 1, pop_value);
         }
     }
-    printf("LIFO Æ¯¼º: 300 -> 200 -> 100 ¼ø¼­·Î ³ª¿Í¾ß ÇÔ\n");
+    printf("LIFO íŠ¹ì„±: 300 -> 200 -> 100 ìˆœì„œë¡œ ë‚˜ì™€ì•¼ í•¨\n");
     printf("\n");
 
-    // 11. ¿¬°á ¸®½ºÆ® Æ¯¼º Å×½ºÆ® (Å©±â Á¦ÇÑ ¾øÀ½)
-    printf("11. ¿¬°á ¸®½ºÆ® Æ¯¼º Å×½ºÆ®\n");
-    printf("¹è¿­ ±â¹İ°ú ´Ş¸® ÀÌ·ĞÀûÀ¸·Î Å©±â Á¦ÇÑÀÌ ¾øÀ½À» È®ÀÎ\n");
-
-    // Àû´çÇÑ Å©±â·Î Å×½ºÆ®
-    for (int i = 1; i <= 15; i++) {
-        sl_push(&stack, i * 7); // 7ÀÇ ¹è¼öµé Ãß°¡
-    }
-    printf("15°³ ¿ä¼Ò Ãß°¡ ¿Ï·á, Å©±â: %d\n", sl_size(&stack));
-    sl_print(&stack);
-
-    // ÀÏºÎ¸¸ Á¦°Å
-    for (int i = 0; i < 5; i++) {
-        sl_pop(&stack, &pop_value);
-    }
-    printf("5°³ Á¦°Å ÈÄ Å©±â: %d\n", sl_size(&stack));
-    sl_print(&stack);
+    // 11. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸
+    printf("11. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸\n");
+    printf("ëª‡ ê°œ ìš”ì†Œ ì¶”ê°€ í›„ ë¶ˆë³€ì‹ ê²€ì‚¬...\n");
+    sa_push(stack, 50);
+    sa_push(stack, 60);
+    sa_push(stack, 70);
+    sa_print(stack);
+    printf("ë¶ˆë³€ì‹ ê²€ì‚¬ ì™„ë£Œ (ì—ëŸ¬ ë©”ì‹œì§€ê°€ ì—†ìœ¼ë©´ ì •ìƒ)\n");
     printf("\n");
 
-    // 12. ºÒº¯½Ä °Ë»ç Å×½ºÆ®
-    printf("12. ºÒº¯½Ä °Ë»ç Å×½ºÆ®\n");
-    printf("ÇöÀç ½ºÅÃ »óÅÂ¿¡¼­ ºÒº¯½Ä °Ë»ç...\n");
-    sl_print(&stack);
-    printf("ºÒº¯½Ä °Ë»ç ¿Ï·á (¿¡·¯ ¸Ş½ÃÁö°¡ ¾øÀ¸¸é Á¤»ó)\n");
+    // 12. ë©”ëª¨ë¦¬ í•´ì œ
+    printf("12. ë©”ëª¨ë¦¬ í•´ì œ\n");
+    sa_free(stack);
+    printf("ìŠ¤íƒ ë©”ëª¨ë¦¬ í•´ì œ ì™„ë£Œ\n");
     printf("\n");
 
-    // 13. ¸Ş¸ğ¸® ÇØÁ¦
-    printf("13. ¸Ş¸ğ¸® ÇØÁ¦\n");
-    sl_free(&stack);
-    printf("½ºÅÃ ¸Ş¸ğ¸® ÇØÁ¦ ¿Ï·á\n");
-    sl_print(&stack);
-    printf("ÇØÁ¦ ÈÄ Å©±â: %d\n", sl_size(&stack));
-    printf("\n");
+    // 13. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸
+    printf("13. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸\n");
+    result = sa_push(NULL, 10);
+    printf("NULL ìŠ¤íƒì— push ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
-    // 14. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®
-    printf("14. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®\n");
-    result = sl_push(NULL, 10);
-    printf("NULL ½ºÅÃ¿¡ push °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    result = sa_pop(NULL, &pop_value);
+    printf("NULL ìŠ¤íƒì—ì„œ pop ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
-    result = sl_pop(NULL, &pop_value);
-    printf("NULL ½ºÅÃ¿¡¼­ pop °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    result = sa_peek(NULL, &peek_value);
+    printf("NULL ìŠ¤íƒì—ì„œ peek ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
-    result = sl_peek(NULL, &peek_value);
-    printf("NULL ½ºÅÃ¿¡¼­ peek °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    sa_print(NULL);
+    printf("NULL í¬ì¸í„° í…ŒìŠ¤íŠ¸ ì™„ë£Œ\n");
 
-    sl_print(NULL);
-    printf("NULL Æ÷ÀÎÅÍ Å×½ºÆ® ¿Ï·á\n");
-
-    printf("\n===== ¿¬°á ¸®½ºÆ® ±â¹İ ½ºÅÃ Å×½ºÆ® ¿Ï·á =====\n");
-    return 0;
+    printf("\n===== ë°°ì—´ ê¸°ë°˜ ìŠ¤íƒ í…ŒìŠ¤íŠ¸ ì™„ë£Œ =====\n");
 }
