@@ -80,12 +80,12 @@ int main() {
 
     int push_count = 0;
     for (int i = sa_size(stack); i < STACK_MAX_SIZE; i++) {
-        result = sa_push(stack, i * 10);
+        result = sa_push(stack, (i+1) * 10);
         if (result) {
             push_count++;
         }
         else {
-            printf("push 실패: %d\n", i * 10);
+            printf("push 실패: %d\n", (i + 1) * 10);
             break;
         }
     }
