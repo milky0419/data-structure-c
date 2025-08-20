@@ -1,4 +1,4 @@
-﻿#include "queue_array.h"
+#include "queue_array.h"
 #include <stdio.h>
 #include <stdlib.h> // malloc, free를 사용하기 위함
 
@@ -25,8 +25,8 @@ QAP qa_create() {
 // front, rear, size가 유효한 범위에 있는지 검사
 // 원형 큐의 상태 일관성 검사
 static void qa_check_invariants(const QAP queue) {
-    if (!queue) { // 큐가 NULL일 때
-        printf("invariant failed: queue is NULL\n");
+    if (!queue) { // 큐가 존재하지 않을 때
+        printf("invariant failed: queue does not exist\n");
         return;
     }
 
@@ -61,12 +61,38 @@ static void qa_check_invariants(const QAP queue) {
     }
 }
 
+/* ===== 큐 상태 확인 ===== */
+
+/* 비어 있는지 확인 */
+int qa_is_empty(const QAP queue) {
+    if (!queue) { // 큐가 존재하지 않으면
+        return 1; // 비어있다고 간주
+    }
+    return (queue->size == 0) ? 1 : 0;
+}
+
+/* 가득 찼는지 확인 */
+int qa_is_full(const QAP queue) {
+    if (!queue) { // 큐가 존재하지 않으면
+        return 0; // 가득 차지 않았다고 간주
+    }
+    return (queue->size == queue->capacity) ? 1 : 0;
+}
+
+/* 현재 큐에 저장된 요소 개수 반환 */
+int qa_size(const QAP queue) {
+    if (!queue) {
+        return 0;
+    }
+    return queue->size;
+}
+
 /* ===== 큐 기본 연산 ===== */
 
 /* 데이터 삽입: 성공 시 1, 실패 시 0 */
 int qa_enqueue(QAP queue, int value) {
     if (!queue) {
-        printf("큐가 NULL입니다\n");
+        printf("큐가 존재하지 않습니다\n");
         return 0; // 실패
     }
 
@@ -87,7 +113,7 @@ int qa_enqueue(QAP queue, int value) {
 /* 데이터 제거 및 반환: 성공 시 1, 실패 시 0 */
 int qa_dequeue(QAP queue, int* out) {
     if (!queue) {
-        printf("큐가 NULL입니다\n");
+        printf("큐가 존재하지 않습니다\n");
         return 0; // 실패
     }
 
@@ -114,37 +140,11 @@ int qa_dequeue(QAP queue, int* out) {
     return 1; // 성공
 }
 
-/* ===== 큐 상태 확인 ===== */
-
-/* 비어 있는지 확인 */
-int qa_is_empty(const QAP queue) {
-    if (!queue) {
-        return 1; // NULL이면 비어있다고 간주
-    }
-    return (queue->size == 0) ? 1 : 0;
-}
-
-/* 가득 찼는지 확인 */
-int qa_is_full(const QAP queue) {
-    if (!queue) {
-        return 0; // NULL이면 가득 차지 않았다고 간주
-    }
-    return (queue->size == queue->capacity) ? 1 : 0;
-}
-
-/* 현재 큐에 저장된 요소 개수 반환 */
-int qa_size(const QAP queue) {
-    if (!queue) {
-        return 0;
-    }
-    return queue->size;
-}
-
 /* ===== 큐 출력 ===== */
 // front->rear 순서
 void qa_print(const QAP queue) {
     if (!queue) {
-        printf("큐가 NULL입니다\n");
+        printf("큐가 존재하지 않습니다\n");
         return;
     }
 
@@ -153,7 +153,7 @@ void qa_print(const QAP queue) {
         return;
     }
 
-    printf("큐 [front -> rear]: ");
+    printf("큐 [front -> rear]: [ ");
     int current = queue->front;
     for (int i = 0; i < queue->size; i++) {
         printf("%d", queue->data[current]);
@@ -162,7 +162,7 @@ void qa_print(const QAP queue) {
         }
         current = (current + 1) % queue->capacity; // 원형 순환
     }
-    printf("\n");
+    printf(" ]\n");
     printf("크기: %d/%d, front=%d, rear=%d\n",
         queue->size, queue->capacity, queue->front, queue->rear);
 }
