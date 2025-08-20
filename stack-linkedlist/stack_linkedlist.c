@@ -1,10 +1,10 @@
 #include "stack_linkedlist.h"
 #include <stdio.h>
-#include <stdlib.h> // malloc, free¸¦ »ç¿ëÇÏ±â À§ÇÔ
+#include <stdlib.h> // malloc, freeë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨
 
-/* ===== ½ºÅÃ »ý¼º ===== */
+/* ===== ìŠ¤íƒ ìƒì„± ===== */
 
-/* ºó ½ºÅÃ »ý¼º ¹× ÃÊ±âÈ­ */
+/* ë¹ˆ ìŠ¤íƒ ìƒì„± ë° ì´ˆê¸°í™” */
 SLP sl_create() {
     SLP stack;
     stack.top = NULL;
@@ -12,12 +12,12 @@ SLP sl_create() {
     return stack;
 }
 
-/* »õ ³ëµå µ¿Àû »ý¼º */
+/* ìƒˆ ë…¸ë“œ ë™ì  ìƒì„± */
 static SLNode* sl_new_node(int value) {
     SLNode* n = (SLNode*)malloc(sizeof(SLNode));
 
-    if (!n) // µ¿Àû ÇÒ´ç ½ÇÆÐ ½Ã
-        return NULL; // NULL ¹ÝÈ¯
+    if (!n) // ë™ì  í• ë‹¹ ì‹¤íŒ¨ ì‹œ
+        return NULL; // NULL ë°˜í™˜
 
     n->data = value;
     n->next = NULL;
@@ -25,25 +25,25 @@ static SLNode* sl_new_node(int value) {
     return n;
 }
 
-/* ===== ºÒº¯½Ä °Ë»ç(Ãß°¡ ±â´É) ===== */
-// ºó ½ºÅÃÀÏ ¶§ top==NULLÀÎÁö °Ë»ç
-// ¿¬°á ¸®½ºÆ®ÀÇ ¹«°á¼º °Ë»ç
-static void sl_check_invariants(const SLP* stack) {
-    if (!stack) { // ½ºÅÃÀÌ NULLÀÏ ¶§
-        printf("invariant failed: stack is NULL\n");
-        return; // ÇÔ¼ö Á¾·á
+/* ===== ë¶ˆë³€ì‹ ê²€ì‚¬(ì¶”ê°€ ê¸°ëŠ¥) ===== */
+// ë¹ˆ ìŠ¤íƒì¼ ë•Œ top==NULLì¸ì§€ ê²€ì‚¬
+// ì—°ê²° ë¦¬ìŠ¤íŠ¸ì˜ ë¬´ê²°ì„± ê²€ì‚¬
+void sl_check_invariants(const SLP* stack) {
+    if (!stack) { // ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ
+        printf("invariant failed: stack does not exist\n");
+        return; // í•¨ìˆ˜ ì¢…ë£Œ
     }
 
-    // 1) ºó ½ºÅÃÀÏ ¶§: top == NULLÀÎÁö °Ë»ç
+    // 1) ë¹ˆ ìŠ¤íƒì¼ ë•Œ: top == NULLì¸ì§€ ê²€ì‚¬
     if (stack->top == NULL) {
-        // ºó ½ºÅÃ »óÅÂ: Á¤»ó
+        // ë¹ˆ ìŠ¤íƒ ìƒíƒœ: ì •ìƒ
         return;
     }
 
-    // 2) ºó ½ºÅÃÀÌ ¾Æ´Ò ¶§: ¿¬°á ¸®½ºÆ® ¹«°á¼º °Ë»ç
+    // 2) ë¹ˆ ìŠ¤íƒì´ ì•„ë‹ ë•Œ: ì—°ê²° ë¦¬ìŠ¤íŠ¸ ë¬´ê²°ì„± ê²€ì‚¬
     SLNode* cur = stack->top;
     int count = 0;
-    while (cur && count < 10000) { // ¹«ÇÑ ·çÇÁ ¹æÁö
+    while (cur && count < 10000) { // ë¬´í•œ ë£¨í”„ ë°©ì§€
         cur = cur->next;
         count++;
     }
@@ -53,83 +53,17 @@ static void sl_check_invariants(const SLP* stack) {
     }
 }
 
-/* ===== ½ºÅÃ ±âº» ¿¬»ê ===== */
+/* ===== ìŠ¤íƒ ìƒíƒœ í™•ì¸ ===== */
 
-/* µ¥ÀÌÅÍ »ðÀÔ: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
-int sl_push(SLP* stack, int value) {
-    if (!stack) {
-        printf("½ºÅÃÀÌ NULLÀÔ´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    SLNode* n = sl_new_node(value);
-    if (!n) { // ¸Þ¸ð¸® ºÎÁ· ½Ã
-        printf("¸Þ¸ð¸® ÇÒ´ç ½ÇÆÐ\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    n->next = stack->top;
-    stack->top = n;
-
-    sl_check_invariants(stack); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
-}
-
-/* µ¥ÀÌÅÍ Á¦°Å ¹× ¹ÝÈ¯: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
-int sl_pop(SLP* stack, int* out) {
-    if (!stack) {
-        printf("½ºÅÃÀÌ NULLÀÔ´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    if (sl_is_empty(stack)) {
-        printf("½ºÅÃÀÌ ºñ¾îÀÖ½À´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    SLNode* top_node = stack->top;
-    if (out) {
-        *out = top_node->data;
-    }
-
-    stack->top = top_node->next;
-    free(top_node);
-    top_node = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
-
-    sl_check_invariants(stack); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
-}
-
-/* ÃÖ»ó´Ü È®ÀÎ: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
-int sl_peek(const SLP* stack, int* out) {
-    if (!stack) {
-        printf("½ºÅÃÀÌ NULLÀÔ´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    if (sl_is_empty(stack)) {
-        printf("½ºÅÃÀÌ ºñ¾îÀÖ½À´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    if (out) {
-        *out = stack->top->data;
-    }
-
-    return 1; // ¼º°ø
-}
-
-/* ===== ½ºÅÃ »óÅÂ È®ÀÎ ===== */
-
-/* ºñ¾î ÀÖ´ÂÁö È®ÀÎ */
+/* ë¹„ì–´ ìžˆëŠ”ì§€ í™•ì¸ */
 int sl_is_empty(const SLP* stack) {
-    if (!stack) {
-        return 1; // NULLÀÌ¸é ºñ¾îÀÖ´Ù°í °£ÁÖ
+    if (!stack) { // ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´
+        return 1; // ë¹„ì–´ìžˆë‹¤ê³  ê°„ì£¼
     }
     return (stack->top == NULL) ? 1 : 0;
 }
 
-/* ÇöÀç ½ºÅÃ¿¡ ÀúÀåµÈ ¿ä¼Ò °³¼ö ¹ÝÈ¯ */
+/* í˜„ìž¬ ìŠ¤íƒì— ì €ìž¥ëœ ìš”ì†Œ ê°œìˆ˜ ë°˜í™˜ */
 int sl_size(const SLP* stack) {
     if (!stack || !stack->top) {
         return 0;
@@ -144,20 +78,87 @@ int sl_size(const SLP* stack) {
     return count;
 }
 
-/* ===== ½ºÅÃ Ãâ·Â ===== */
+/* ===== ìŠ¤íƒ ê¸°ë³¸ ì—°ì‚° ===== */
+
+/* ë°ì´í„° ì‚½ìž…: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 */
+int sl_push(SLP* stack, int value) {
+    if (!stack) {
+        printf("ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    SLNode* n = sl_new_node(value);
+    if (!n) { // ë©”ëª¨ë¦¬ ë¶€ì¡± ì‹œ
+        printf("ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    n->next = stack->top;
+    stack->top = n;
+
+    sl_check_invariants(stack); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
+}
+
+/* ë°ì´í„° ì œê±° ë° ë°˜í™˜: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 */
+int sl_pop(SLP* stack, int* out) {
+    if (!stack) {
+        printf("ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    if (sl_is_empty(stack)) {
+        printf("ìŠ¤íƒì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    SLNode* top_node = stack->top;
+    if (out) {
+        *out = top_node->data;
+    }
+
+    stack->top = top_node->next;
+    free(top_node);
+    top_node = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
+
+    sl_check_invariants(stack); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
+}
+
+/* ìµœìƒë‹¨ í™•ì¸: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 */
+int sl_peek(const SLP* stack, int* out) {
+    if (!stack) {
+        printf("ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    if (sl_is_empty(stack)) {
+        printf("ìŠ¤íƒì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    if (out) {
+        *out = stack->top->data;
+    }
+
+    return 1; // ì„±ê³µ
+}
+
+/* ===== ìŠ¤íƒ ì¶œë ¥ ===== */
 void sl_print(const SLP* stack) {
     if (!stack) {
-        printf("½ºÅÃÀÌ NULLÀÔ´Ï´Ù\n");
+        printf("ìŠ¤íƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
         return;
     }
 
     if (sl_is_empty(stack)) {
-        printf("½ºÅÃÀÌ ºñ¾îÀÖ½À´Ï´Ù\n");
+        printf("ìŠ¤íƒì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤\n");
         return;
     }
 
-    printf("½ºÅÃ [top -> bottom]: ");
+    printf("ìŠ¤íƒ [top -> bottom]: ");
     SLNode* cur = stack->top;
+    printf("[ ");
     while (cur) {
         printf("%d", cur->data);
         if (cur->next) {
@@ -165,11 +166,11 @@ void sl_print(const SLP* stack) {
         }
         cur = cur->next;
     }
-    printf(" -> NULL\n");
-    printf("Å©±â: %d\n", sl_size(stack));
+    printf(" ]\n");
+    printf("í¬ê¸°: %d\n", sl_size(stack));
 }
 
-/* ===== ¸Þ¸ð¸® ÇØÁ¦ ===== */
+/* ===== ë©”ëª¨ë¦¬ í•´ì œ ===== */
 void sl_free(SLP* stack) {
     if (!stack) {
         return;
@@ -180,7 +181,7 @@ void sl_free(SLP* stack) {
         SLNode* temp = cur;
         cur = cur->next;
         free(temp);
-        temp = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
+        temp = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
     }
 
     stack->top = NULL;
