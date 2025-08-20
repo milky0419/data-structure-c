@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/21766986/README.sll.md)
+[README.md](https://github.com/user-attachments/files/21899125/README.sl.md)
 # 연결 리스트 기반 스택 (Stack-Linkedlist)
 
 ## 개념
@@ -33,19 +33,19 @@ typedef struct {
 | ---------- | --------------- | ------------- |
 | `push`     | 새 노드를 top 앞에 추가 | 새 노드가 top이 됨  |
 | `pop`      | top 노드 제거 후 반환  | top 갱신 필요     |
-| `peek`     | top 노드의 값 확인    | 삭제는 안 함       |
+| `peek`     | top 노드의 값 확인    |               |
 | `is_empty` | top이 NULL인지 확인  |               |
 | `free`     | 모든 노드 해제        | 반복적으로 free 필요 |
 
 ### 4. 장단점
 
-- 장점
+- **장점**
   
   + 배열과 달리 **크기 제한 없음** (필요할 때마다 malloc)
   
   + 메모리를 **효율적**으로 사용 (필요한 만큼만 사용)
 
-- 단점
+- **단점**
   
   + **연속된 메모리**가 아니라서 **CPU 캐시 효율이 낮음**
   
@@ -55,21 +55,21 @@ typedef struct {
 
 - 빈 스택 생성 및 초기화: `sl_create()`
 
+- 연결 리스트 무결성과 순환 참조 검증 (자동 실행): `sl_check_invariants()`
+
+- 비어 있는지 확인: `sl_is_empty()`
+
+- 현재 저장된 요소 개수 반환: `sl_size()`
+
 - 데이터 삽입: `sl_push()`
 
 - 데이터 제거 및 반환: `sl_pop()`
 
 - 최상단 확인: `sl_peek()`
 
-- 비어 있는지 확인: `sl_is_empty()`
-
-- 현재 저장된 요소 개수 반환: `sl_size()`
-
 - 스택 내용 출력 (top -> bottom 순서): `sl_print()`
 
 - 모든 노드 해제 및 top 초기화: `sl_free()`
-
-- 연결 리스트 무결성과 순환 참조 검증 (자동 실행): `sl_check_invariants()`
 
 ## 테스트
 
