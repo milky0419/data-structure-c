@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/21759549/README.sa.md)
+[README.md](https://github.com/user-attachments/files/21887361/README.sa.md)
 # 배열 기반 스택 (Stack-Array)
 
 ## 개념
@@ -48,15 +48,15 @@ typedef struct {
 ## 구현된 기능
 
 - 새로운 스택 생성 및 초기화: `sa_create()`
-- 데이터 삽입: `sa_push()`
-- 데이터 제거 및 반환: `sa_pop()`
-- 최상단 확인: `sa_peek()`
+- top 인덱스 유효성과 스택 상태 검증 (자동 실행): `sa_check_invariants()`
 - 비어 있는지 확인: `sa_is_empty()`
 - 가득 찼는지 확인: `sa_is_full()`
 - 현재 저장된 요소 개수 반환: `sa_size()`
+- 데이터 삽입: `sa_push()`
+- 데이터 제거 및 반환: `sa_pop()`
+- 최상단 확인(제거하지 않음): `sa_peek()`
 - 스택 내용 출력 (bottom -> top 순서): `sa_print()`
 - 스택 구조체 해제: `sa_free()`
-- top 인덱스 유효성과 스택 상태 검증 (자동 실행): `sa_check_invariants()`
 
 ## 테스트
 
@@ -74,15 +74,13 @@ typedef struct {
 
 ### 3. peek 테스트
 
-- 최상단 요소 확인 (스택 변경 없음)
+- 최상단 요소 확인
 - peek 전후 스택 상태 비교
-- out 파라미터를 통한 값 반환 확인
 
 ### 4. pop 기본 테스트
 
 - 최상단 요소 제거 및 값 반환
 - pop 전후 스택 상태 비교
-- out 파라미터를 통한 값 반환 확인
 
 ### 5. 스택 상태 확인 테스트
 
@@ -119,7 +117,6 @@ typedef struct {
 
 - 100, 200, 300 순서로 push
 - pop 순서가 300, 200, 100인지 확인
-- Last In First Out 동작 검증
 
 ### 11. 불변식 검사 테스트
 
@@ -131,10 +128,9 @@ typedef struct {
 ### 12. 메모리 해제 테스트
 
 - `sa_free()` 함수로 스택 구조체 메모리 해제
-- 해제 후 댕글링 포인터 방지 확인
 
 ### 13. NULL 포인터 안전성 테스트
 
 - NULL 스택에 대한 모든 연산 테스트
-- `sa_push(NULL, 10)`, `sa_pop(NULL, &value)`, `sa_peek(NULL, &value)` 안전 처리
-- `sa_print(NULL)` 적절한 메시지 출력
+- `sa_push(NULL, 10)`, `sa_pop(NULL, &value)`, `sa_peek(NULL, &value)`
+- `sa_print(NULL)`
