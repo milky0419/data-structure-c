@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include "stack_array.h"
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
     }
     else {
         printf("스택 생성 실패!\n");
-        return -1;
+        return 1;
     }
     printf("\n");
 
@@ -40,7 +40,7 @@ int main() {
     int peek_value;
     result = sa_peek(stack, &peek_value);
     if (result) {
-        printf("peek 결과: %d (스택은 변경되지 않음)\n", peek_value);
+        printf("peek 결과: %d\n", peek_value);
         sa_print(stack);
     }
     else {
@@ -91,7 +91,7 @@ int main() {
     }
     printf("%d개 요소 추가 완료\n", push_count);
     printf("최종 크기: %d\n", sa_size(stack));
-    printf("가득참 확인: %s\n", sa_is_full(stack) ? "가득함" : "가득차지 않음");
+    printf("가득참 확인: %s\n", sa_is_full(stack) ? "가득참" : "가득차지 않음");
     printf("\n");
 
     // 7. 가득 찬 스택에 push 시도 (오버플로우 테스트)
@@ -110,9 +110,7 @@ int main() {
         result = sa_pop(stack, &pop_value);
         if (result) {
             pop_count++;
-            if (pop_count <= 5 || pop_count % 20 == 0) { // 처음 5개와 20개마다 출력
-                printf("pop[%d]: %d (남은 크기: %d)\n", pop_count, pop_value, sa_size(stack));
-            }
+            printf("pop[%d]: %d (남은 크기: %d)\n", pop_count, pop_value, sa_size(stack));
         }
         else {
             break;
@@ -182,5 +180,4 @@ int main() {
     printf("NULL 포인터 테스트 완료\n");
 
     printf("\n===== 배열 기반 스택 테스트 완료 =====\n");
-    return 0;
 }
