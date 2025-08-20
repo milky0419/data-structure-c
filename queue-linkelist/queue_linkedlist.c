@@ -1,10 +1,10 @@
 #include "queue_linkedlist.h"
 #include <stdio.h>
-#include <stdlib.h> // malloc, free¸¦ »ç¿ëÇÏ±â À§ÇÔ
+#include <stdlib.h> // malloc, freeë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨
 
-/* ===== Å¥ »ý¼º ===== */
+/* ===== í ìƒì„± ===== */
 
-/* ºó Å¥ »ý¼º ¹× ÃÊ±âÈ­ */
+/* ë¹ˆ í ìƒì„± ë° ì´ˆê¸°í™” */
 QLP ql_create() {
     QLP queue;
     queue.front = NULL;
@@ -13,12 +13,12 @@ QLP ql_create() {
     return queue;
 }
 
-/* »õ ³ëµå µ¿Àû »ý¼º */
+/* ìƒˆ ë…¸ë“œ ë™ì  ìƒì„± */
 static QLNode* ql_new_node(int value) {
     QLNode* n = (QLNode*)malloc(sizeof(QLNode));
 
-    if (!n) // µ¿Àû ÇÒ´ç ½ÇÆÐ ½Ã
-        return NULL; // NULL ¹ÝÈ¯
+    if (!n) // ë™ì  í• ë‹¹ ì‹¤íŒ¨ ì‹œ
+        return NULL; // NULL ë°˜í™˜
 
     n->data = value;
     n->next = NULL;
@@ -26,41 +26,41 @@ static QLNode* ql_new_node(int value) {
     return n;
 }
 
-/* ===== ºÒº¯½Ä °Ë»ç(Ãß°¡ ±â´É) ===== */
-// ºó Å¥ÀÏ ¶§ front==NULL && rear==NULLÀÎÁö °Ë»ç
-// ºó Å¥°¡ ¾Æ´Ò ¶§ front¿Í rear ¿¬°á »óÅÂ °Ë»ç
-// ´ÜÀÏ ³ëµåÀÏ ¶§ front==rearÀÎÁö °Ë»ç
+/* ===== ë¶ˆë³€ì‹ ê²€ì‚¬(ì¶”ê°€ ê¸°ëŠ¥) ===== */
+// ë¹ˆ íì¼ ë•Œ front==NULL && rear==NULLì¸ì§€ ê²€ì‚¬
+// ë¹ˆ íê°€ ì•„ë‹ ë•Œ frontì™€ rear ì—°ê²° ìƒíƒœ ê²€ì‚¬
+// ë‹¨ì¼ ë…¸ë“œì¼ ë•Œ front==rearì¸ì§€ ê²€ì‚¬
 static void ql_check_invariants(const QLP* queue) {
-    if (!queue) { // Å¥°¡ NULLÀÏ ¶§
-        printf("invariant failed: queue is NULL\n");
-        return; // ÇÔ¼ö Á¾·á
+    if (!queue) { // íê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ
+        printf("invariant failed: queue does not exist\n");
+        return; // í•¨ìˆ˜ ì¢…ë£Œ
     }
 
-    // 1) ºó Å¥ÀÏ ¶§: front/rearÀº µ¿½Ã¿¡ NULLÀÌ¾î¾ß ÇÔ
+    // 1) ë¹ˆ íì¼ ë•Œ: front/rearì€ ë™ì‹œì— NULLì´ì–´ì•¼ í•¨
     if (queue->front == NULL || queue->rear == NULL) {
         if (!(queue->front == NULL && queue->rear == NULL))
             printf("invariant failed: only one of front/rear is NULL (front=%p, rear=%p)\n",
                 (void*)queue->front, (void*)queue->rear);
-        return; // ºó Å¥¸é Ãß°¡ °Ë»ç ºÒÇÊ¿ä
+        return; // ë¹ˆ íë©´ ì¶”ê°€ ê²€ì‚¬ ë¶ˆí•„ìš”
     }
 
-    // 2) ´ÜÀÏ ³ëµåÀÏ ¶§: front == rearÀÎÁö °Ë»ç
+    // 2) ë‹¨ì¼ ë…¸ë“œì¼ ë•Œ: front == rearì¸ì§€ ê²€ì‚¬
     if (queue->front == queue->rear) {
         if (queue->front->next != NULL) {
             printf("invariant failed: single node should have next==NULL\n");
         }
-        return; // ´ÜÀÏ ³ëµå¸é Ãß°¡ °Ë»ç ºÒÇÊ¿ä
+        return; // ë‹¨ì¼ ë…¸ë“œë©´ ì¶”ê°€ ê²€ì‚¬ ë¶ˆí•„ìš”
     }
 
-    // 3) ´ÙÁß ³ëµåÀÏ ¶§: rear->next == NULLÀÎÁö °Ë»ç
+    // 3) ë‹¤ì¤‘ ë…¸ë“œì¼ ë•Œ: rear->next == NULLì¸ì§€ ê²€ì‚¬
     if (queue->rear->next != NULL) {
         printf("invariant failed: rear->next must be NULL\n");
     }
 
-    // 4) front¿¡¼­ rear±îÁö ¿¬°á È®ÀÎ
+    // 4) frontì—ì„œ rearê¹Œì§€ ì—°ê²° í™•ì¸
     QLNode* cur = queue->front;
     int count = 0;
-    while (cur && cur != queue->rear && count < 10000) { // ¹«ÇÑ ·çÇÁ ¹æÁö
+    while (cur && cur != queue->rear && count < 10000) { // ë¬´í•œ ë£¨í”„ ë°©ì§€
         cur = cur->next;
         count++;
     }
@@ -73,75 +73,17 @@ static void ql_check_invariants(const QLP* queue) {
     }
 }
 
-/* ===== Å¥ ±âº» ¿¬»ê ===== */
+/* ===== í ìƒíƒœ í™•ì¸ ===== */
 
-/* µ¥ÀÌÅÍ »ðÀÔ: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
-int ql_enqueue(QLP* queue, int value) {
-    if (!queue) {
-        printf("Å¥°¡ NULLÀÔ´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    QLNode* n = ql_new_node(value);
-    if (!n) { // ¸Þ¸ð¸® ºÎÁ· ½Ã
-        printf("¸Þ¸ð¸® ÇÒ´ç ½ÇÆÐ\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    if (ql_is_empty(queue)) { // ºó Å¥ÀÏ ¶§
-        queue->front = queue->rear = n;
-    }
-    else {
-        queue->rear->next = n;
-        queue->rear = n;
-    }
-
-    ql_check_invariants(queue); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
-}
-
-/* µ¥ÀÌÅÍ Á¦°Å ¹× ¹ÝÈ¯: ¼º°ø ½Ã 1, ½ÇÆÐ ½Ã 0 */
-int ql_dequeue(QLP* queue, int* out) {
-    if (!queue) {
-        printf("Å¥°¡ NULLÀÔ´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    if (ql_is_empty(queue)) {
-        printf("Å¥°¡ ºñ¾îÀÖ½À´Ï´Ù\n");
-        return 0; // ½ÇÆÐ
-    }
-
-    QLNode* front_node = queue->front;
-    if (out) {
-        *out = front_node->data;
-    }
-
-    queue->front = front_node->next;
-
-    // Å¥°¡ ºñ¾îÁö¸é rearµµ NULL·Î ¼³Á¤
-    if (queue->front == NULL) {
-        queue->rear = NULL;
-    }
-
-    free(front_node);
-    front_node = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
-
-    ql_check_invariants(queue); // ºÒº¯½Ä °Ë»ç
-    return 1; // ¼º°ø
-}
-
-/* ===== Å¥ »óÅÂ È®ÀÎ ===== */
-
-/* ºñ¾î ÀÖ´ÂÁö È®ÀÎ */
+/* ë¹„ì–´ ìžˆëŠ”ì§€ í™•ì¸ */
 int ql_is_empty(const QLP* queue) {
-    if (!queue) {
-        return 1; // NULLÀÌ¸é ºñ¾îÀÖ´Ù°í °£ÁÖ
+    if (!queue) { // íê°€ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´
+        return 1; // ë¹„ì–´ìžˆë‹¤ê³  ê°„ì£¼
     }
     return (queue->front == NULL) ? 1 : 0;
 }
 
-/* ÇöÀç Å¥¿¡ ÀúÀåµÈ ¿ä¼Ò °³¼ö ¹ÝÈ¯ */
+/* í˜„ìž¬ íì— ì €ìž¥ëœ ìš”ì†Œ ê°œìˆ˜ ë°˜í™˜ */
 int ql_size(const QLP* queue) {
     if (!queue || !queue->front) {
         return 0;
@@ -156,20 +98,78 @@ int ql_size(const QLP* queue) {
     return count;
 }
 
-/* ===== Å¥ Ãâ·Â ===== */
-// front->rear ¼ø¼­
+/* ===== í ê¸°ë³¸ ì—°ì‚° ===== */
+
+/* ë°ì´í„° ì‚½ìž…: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 */
+int ql_enqueue(QLP* queue, int value) {
+    if (!queue) {
+        printf("íê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    QLNode* n = ql_new_node(value);
+    if (!n) { // ë©”ëª¨ë¦¬ ë¶€ì¡± ì‹œ
+        printf("ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    if (ql_is_empty(queue)) { // ë¹ˆ íì¼ ë•Œ
+        queue->front = queue->rear = n;
+    }
+    else {
+        queue->rear->next = n;
+        queue->rear = n;
+    }
+
+    ql_check_invariants(queue); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
+}
+
+/* ë°ì´í„° ì œê±° ë° ë°˜í™˜: ì„±ê³µ ì‹œ 1, ì‹¤íŒ¨ ì‹œ 0 */
+int ql_dequeue(QLP* queue, int* out) {
+    if (!queue) {
+        printf("íê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    if (ql_is_empty(queue)) {
+        printf("íê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤\n");
+        return 0; // ì‹¤íŒ¨
+    }
+
+    QLNode* front_node = queue->front;
+    if (out) {
+        *out = front_node->data;
+    }
+
+    queue->front = front_node->next;
+
+    // íê°€ ë¹„ì–´ì§€ë©´ rearë„ NULLë¡œ ì„¤ì •
+    if (queue->front == NULL) {
+        queue->rear = NULL;
+    }
+
+    free(front_node);
+    front_node = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
+
+    ql_check_invariants(queue); // ë¶ˆë³€ì‹ ê²€ì‚¬
+    return 1; // ì„±ê³µ
+}
+
+/* ===== í ì¶œë ¥ ===== */
+// front->rear ìˆœì„œ
 void ql_print(const QLP* queue) {
     if (!queue) {
-        printf("Å¥°¡ NULLÀÔ´Ï´Ù\n");
+        printf("íê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤\n");
         return;
     }
 
     if (ql_is_empty(queue)) {
-        printf("Å¥°¡ ºñ¾îÀÖ½À´Ï´Ù\n");
+        printf("íê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤\n");
         return;
     }
 
-    printf("Å¥ [front -> rear]: ");
+    printf("í [front -> rear]: [ ");
     QLNode* cur = queue->front;
     while (cur) {
         printf("%d", cur->data);
@@ -178,11 +178,11 @@ void ql_print(const QLP* queue) {
         }
         cur = cur->next;
     }
-    printf(" -> NULL\n");
-    printf("Å©±â: %d\n", ql_size(queue));
+    printf(" ]\n");
+    printf("í¬ê¸°: %d\n", ql_size(queue));
 }
 
-/* ===== ¸Þ¸ð¸® ÇØÁ¦ ===== */
+/* ===== ë©”ëª¨ë¦¬ í•´ì œ ===== */
 void ql_free(QLP* queue) {
     if (!queue) {
         return;
@@ -193,7 +193,7 @@ void ql_free(QLP* queue) {
         QLNode* temp = cur;
         cur = cur->next;
         free(temp);
-        temp = NULL; // free ÈÄ Æ÷ÀÎÅÍ¸¦ NULL·Î ¼³Á¤
+        temp = NULL; // free í›„ í¬ì¸í„°ë¥¼ NULLë¡œ ì„¤ì •
     }
 
     queue->front = NULL;
