@@ -2,80 +2,80 @@
 #include "queue_linkedlist.h"
 
 int main() {
-    printf("===== ¿¬°á ¸®½ºÆ® ±â¹İ Å¥ Å×½ºÆ® ½ÃÀÛ =====\n\n");
+    printf("===== ì—°ê²° ë¦¬ìŠ¤íŠ¸ ê¸°ë°˜ í í…ŒìŠ¤íŠ¸ ì‹œì‘ =====\n\n");
 
-    // 1. Å¥ »ı¼º Å×½ºÆ®
-    printf("1. Å¥ »ı¼º Å×½ºÆ®\n");
+    // 1. í ìƒì„± í…ŒìŠ¤íŠ¸
+    printf("1. í ìƒì„± í…ŒìŠ¤íŠ¸\n");
     QLP queue = ql_create();
-    printf("Å¥ »ı¼º ¼º°ø!\n");
-    printf("ÃÊ±â »óÅÂ: ");
+    printf("í ìƒì„± ì„±ê³µ!\n");
+    printf("ì´ˆê¸° ìƒíƒœ: ");
     ql_print(&queue);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", ql_is_empty(&queue) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
-    printf("ÃÊ±â Å©±â: %d\n", ql_size(&queue));
+    printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", ql_is_empty(&queue) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
+    printf("ì´ˆê¸° í¬ê¸°: %d\n", ql_size(&queue));
     printf("\n");
 
-    // 2. enqueue ±âº» Å×½ºÆ®
-    printf("2. enqueue ±âº» Å×½ºÆ®\n");
+    // 2. enqueue ê¸°ë³¸ í…ŒìŠ¤íŠ¸
+    printf("2. enqueue ê¸°ë³¸ í…ŒìŠ¤íŠ¸\n");
     int result = ql_enqueue(&queue, 10);
-    printf("10 enqueue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("10 enqueue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     ql_print(&queue);
 
     result = ql_enqueue(&queue, 20);
-    printf("20 enqueue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("20 enqueue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     ql_print(&queue);
 
     result = ql_enqueue(&queue, 30);
-    printf("30 enqueue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("30 enqueue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     ql_print(&queue);
     printf("\n");
 
-    // 3. dequeue ±âº» Å×½ºÆ®
-    printf("3. dequeue ±âº» Å×½ºÆ®\n");
-    printf("dequeue Àü »óÅÂ: ");
+    // 3. dequeue ê¸°ë³¸ í…ŒìŠ¤íŠ¸
+    printf("3. dequeue ê¸°ë³¸ í…ŒìŠ¤íŠ¸\n");
+    printf("dequeue ì „ ìƒíƒœ: ");
     ql_print(&queue);
 
     int dequeue_value;
     result = ql_dequeue(&queue, &dequeue_value);
     if (result) {
-        printf("dequeue °á°ú: %d\n", dequeue_value);
-        printf("dequeue ÈÄ »óÅÂ: ");
+        printf("dequeue ê²°ê³¼: %d\n", dequeue_value);
+        printf("dequeue í›„ ìƒíƒœ: ");
         ql_print(&queue);
     }
     else {
-        printf("dequeue ½ÇÆĞ\n");
+        printf("dequeue ì‹¤íŒ¨\n");
     }
     printf("\n");
 
-    // 4. FIFO(First In First Out) Æ¯¼º Å×½ºÆ®
-    printf("4. FIFO Æ¯¼º Å×½ºÆ®\n");
-    printf("ÇöÀç Å¥ »óÅÂ: ");
+    // 4. FIFO(First In First Out) íŠ¹ì„± í…ŒìŠ¤íŠ¸
+    printf("4. FIFO íŠ¹ì„± í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ í ìƒíƒœ: ");
     ql_print(&queue);
 
-    printf("¼ø¼­´ë·Î enqueue: 40, 50\n");
+    printf("ìˆœì„œëŒ€ë¡œ enqueue: 40, 50\n");
     ql_enqueue(&queue, 40);
     ql_enqueue(&queue, 50);
     ql_print(&queue);
 
-    printf("dequeue ¼ø¼­ È®ÀÎ:\n");
+    printf("dequeue ìˆœì„œ í™•ì¸:\n");
     for (int i = 0; i < 4; i++) {
         result = ql_dequeue(&queue, &dequeue_value);
         if (result) {
             printf("dequeue %d: %d\n", i + 1, dequeue_value);
         }
     }
-    printf("FIFO Æ¯¼º: 20 -> 30 -> 40 -> 50 ¼ø¼­·Î ³ª¿Í¾ß ÇÔ\n");
+    printf("FIFO íŠ¹ì„±: 20 -> 30 -> 40 -> 50 ìˆœì„œë¡œ ë‚˜ì™€ì•¼ í•¨\n");
     printf("\n");
 
-    // 5. Å¥ »óÅÂ È®ÀÎ Å×½ºÆ®
-    printf("5. Å¥ »óÅÂ È®ÀÎ Å×½ºÆ®\n");
-    printf("ÇöÀç Å¥ Å©±â: %d\n", ql_size(&queue));
-    printf("ºñ¾îÀÖÀ½: %s\n", ql_is_empty(&queue) ? "¿¹" : "¾Æ´Ï¿À");
+    // 5. í ìƒíƒœ í™•ì¸ í…ŒìŠ¤íŠ¸
+    printf("5. í ìƒíƒœ í™•ì¸ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ í í¬ê¸°: %d\n", ql_size(&queue));
+    printf("ë¹„ì–´ìˆìŒ: %s\n", ql_is_empty(&queue) ? "ì˜ˆ" : "ì•„ë‹ˆì˜¤");
     ql_print(&queue);
     printf("\n");
 
-    // 6. µ¿Àû È®Àå Å×½ºÆ® (¹è¿­°ú ´Ş¸® Å©±â Á¦ÇÑ ¾øÀ½)
-    printf("6. µ¿Àû È®Àå Å×½ºÆ®\n");
-    printf("¸¹Àº ¿ä¼Ò Ãß°¡ÇÏ±â (¹è¿­°ú ´Ş¸® Å©±â Á¦ÇÑ ¾øÀ½)...\n");
+    // 6. ë™ì  í™•ì¥ í…ŒìŠ¤íŠ¸ (ë°°ì—´ê³¼ ë‹¬ë¦¬ í¬ê¸° ì œí•œ ì—†ìŒ)
+    printf("6. ë™ì  í™•ì¥ í…ŒìŠ¤íŠ¸\n");
+    printf("ë§ì€ ìš”ì†Œ ì¶”ê°€í•˜ê¸° (ë°°ì—´ê³¼ ë‹¬ë¦¬ í¬ê¸° ì œí•œ ì—†ìŒ)...\n");
 
     int enqueue_count = 0;
     for (int i = 100; i <= 150; i += 5) {
@@ -84,18 +84,18 @@ int main() {
             enqueue_count++;
         }
         else {
-            printf("enqueue ½ÇÆĞ: %d\n", i);
+            printf("enqueue ì‹¤íŒ¨: %d\n", i);
             break;
         }
     }
-    printf("%d°³ ¿ä¼Ò Ãß°¡ ¿Ï·á\n", enqueue_count);
-    printf("ÃÖÁ¾ Å©±â: %d\n", ql_size(&queue));
+    printf("%dê°œ ìš”ì†Œ ì¶”ê°€ ì™„ë£Œ\n", enqueue_count);
+    printf("ìµœì¢… í¬ê¸°: %d\n", ql_size(&queue));
     ql_print(&queue);
     printf("\n");
 
-    // 7. ¸Ş¸ğ¸® ÇÒ´ç È®ÀÎ (¿¬°á ¸®½ºÆ®ÀÇ ÀåÁ¡)
-    printf("7. ¸Ş¸ğ¸® ÇÒ´ç È®ÀÎ\n");
-    printf("´õ ¸¹Àº ¿ä¼Ò Ãß°¡ ½Ãµµ...\n");
+    // 7. ë©”ëª¨ë¦¬ í• ë‹¹ í™•ì¸ (ì—°ê²° ë¦¬ìŠ¤íŠ¸ì˜ ì¥ì )
+    printf("7. ë©”ëª¨ë¦¬ í• ë‹¹ í™•ì¸\n");
+    printf("ë” ë§ì€ ìš”ì†Œ ì¶”ê°€ ì‹œë„...\n");
     int large_enqueue_count = 0;
     for (int i = 1000; i < 1020; i++) {
         result = ql_enqueue(&queue, i);
@@ -103,40 +103,40 @@ int main() {
             large_enqueue_count++;
         }
         else {
-            printf("¸Ş¸ğ¸® ÇÒ´ç ½ÇÆĞ: %d\n", i);
+            printf("ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨: %d\n", i);
             break;
         }
     }
-    printf("%d°³ Ãß°¡ ¿ä¼Ò enqueue ¿Ï·á\n", large_enqueue_count);
-    printf("ÃÑ Å©±â: %d\n", ql_size(&queue));
-    printf("¾ÕÂÊ 5°³ ¿ä¼Ò¸¸ Ãâ·Â:\n");
+    printf("%dê°œ ì¶”ê°€ ìš”ì†Œ enqueue ì™„ë£Œ\n", large_enqueue_count);
+    printf("ì´ í¬ê¸°: %d\n", ql_size(&queue));
+    printf("ì•ìª½ 5ê°œ ìš”ì†Œë§Œ ì¶œë ¥:\n");
 
-    // ¾ÕÂÊ ¸î °³¸¸ Ãâ·Â (ÀüÃ¼ Ãâ·ÂÀº ³Ê¹« ±æ¾î¼­)
+    // ì•ìª½ ëª‡ ê°œë§Œ ì¶œë ¥ (ì „ì²´ ì¶œë ¥ì€ ë„ˆë¬´ ê¸¸ì–´ì„œ)
     QLNode* cur = queue.front;
     for (int i = 0; i < 5 && cur; i++) {
         printf("  [%d]: %d\n", i, cur->data);
         cur = cur->next;
     }
-    printf("  ... (ÃÑ %d°³)\n", ql_size(&queue));
+    printf("  ... (ì´ %dê°œ)\n", ql_size(&queue));
     printf("\n");
 
-    // 8. ºÎºĞ dequeue ÈÄ enqueue Å×½ºÆ®
-    printf("8. ºÎºĞ dequeue ÈÄ enqueue Å×½ºÆ®\n");
-    printf("10°³ dequeue ÈÄ »õ·Î¿î ¿ä¼Ò Ãß°¡\n");
+    // 8. ë¶€ë¶„ dequeue í›„ enqueue í…ŒìŠ¤íŠ¸
+    printf("8. ë¶€ë¶„ dequeue í›„ enqueue í…ŒìŠ¤íŠ¸\n");
+    printf("10ê°œ dequeue í›„ ìƒˆë¡œìš´ ìš”ì†Œ ì¶”ê°€\n");
 
     for (int i = 0; i < 10; i++) {
         ql_dequeue(&queue, &dequeue_value);
     }
-    printf("10°³ dequeue ÈÄ Å©±â: %d\n", ql_size(&queue));
+    printf("10ê°œ dequeue í›„ í¬ê¸°: %d\n", ql_size(&queue));
 
-    // »õ·Î¿î ¿ä¼Òµé Ãß°¡
+    // ìƒˆë¡œìš´ ìš”ì†Œë“¤ ì¶”ê°€
     for (int i = 200; i < 205; i++) {
         ql_enqueue(&queue, i);
     }
-    printf("5°³ »õ ¿ä¼Ò Ãß°¡ ÈÄ Å©±â: %d\n", ql_size(&queue));
+    printf("5ê°œ ìƒˆ ìš”ì†Œ ì¶”ê°€ í›„ í¬ê¸°: %d\n", ql_size(&queue));
 
-    // ¾ÕÂÊ°ú µÚÂÊ È®ÀÎ
-    printf("ÇöÀç front 5°³: ");
+    // ì•ìª½ê³¼ ë’¤ìª½ í™•ì¸
+    printf("í˜„ì¬ front 5ê°œ: ");
     cur = queue.front;
     for (int i = 0; i < 5 && cur; i++) {
         printf("%d ", cur->data);
@@ -145,17 +145,17 @@ int main() {
     printf("\n");
     printf("\n");
 
-    // 9. ¸ğµç ¿ä¼Ò dequeue Å×½ºÆ®
-    printf("9. ¸ğµç ¿ä¼Ò dequeue Å×½ºÆ®\n");
-    printf("ÀüÃ¼ ¿ä¼Ò dequeue ½ÃÀÛ...\n");
+    // 9. ëª¨ë“  ìš”ì†Œ dequeue í…ŒìŠ¤íŠ¸
+    printf("9. ëª¨ë“  ìš”ì†Œ dequeue í…ŒìŠ¤íŠ¸\n");
+    printf("ì „ì²´ ìš”ì†Œ dequeue ì‹œì‘...\n");
 
     int dequeue_count = 0;
     while (!ql_is_empty(&queue)) {
         result = ql_dequeue(&queue, &dequeue_value);
         if (result) {
             dequeue_count++;
-            if (dequeue_count <= 5 || dequeue_count % 10 == 0) { // Ã³À½ 5°³¿Í 10°³¸¶´Ù Ãâ·Â
-                printf("dequeue[%d]: %d (³²Àº Å©±â: %d)\n",
+            if (dequeue_count <= 5 || dequeue_count % 10 == 0) { // ì²˜ìŒ 5ê°œì™€ 10ê°œë§ˆë‹¤ ì¶œë ¥
+                printf("dequeue[%d]: %d (ë‚¨ì€ í¬ê¸°: %d)\n",
                     dequeue_count, dequeue_value, ql_size(&queue));
             }
         }
@@ -163,85 +163,85 @@ int main() {
             break;
         }
     }
-    printf("ÃÑ %d°³ ¿ä¼Ò dequeue ¿Ï·á\n", dequeue_count);
-    printf("ÃÖÁ¾ »óÅÂ: ");
+    printf("ì´ %dê°œ ìš”ì†Œ dequeue ì™„ë£Œ\n", dequeue_count);
+    printf("ìµœì¢… ìƒíƒœ: ");
     ql_print(&queue);
-    printf("ºñ¾îÀÖÀ½ È®ÀÎ: %s\n", ql_is_empty(&queue) ? "ºñ¾îÀÖÀ½" : "ºñ¾îÀÖÁö ¾ÊÀ½");
+    printf("ë¹„ì–´ìˆìŒ í™•ì¸: %s\n", ql_is_empty(&queue) ? "ë¹„ì–´ìˆìŒ" : "ë¹„ì–´ìˆì§€ ì•ŠìŒ");
     printf("\n");
 
-    // 10. ºó Å¥¿¡¼­ dequeue ½Ãµµ (¾ğ´õÇÃ·Î¿ì Å×½ºÆ®)
-    printf("10. ºó Å¥¿¡¼­ dequeue ½Ãµµ (¾ğ´õÇÃ·Î¿ì Å×½ºÆ®)\n");
+    // 10. ë¹ˆ íì—ì„œ dequeue ì‹œë„ (ì–¸ë”í”Œë¡œìš° í…ŒìŠ¤íŠ¸)
+    printf("10. ë¹ˆ íì—ì„œ dequeue ì‹œë„ (ì–¸ë”í”Œë¡œìš° í…ŒìŠ¤íŠ¸)\n");
     result = ql_dequeue(&queue, &dequeue_value);
-    printf("ºó Å¥ dequeue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("ë¹ˆ í dequeue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
     printf("\n");
 
-    // 11. ´ÜÀÏ ³ëµå Å×½ºÆ®
-    printf("11. ´ÜÀÏ ³ëµå Å×½ºÆ®\n");
-    printf("´ÜÀÏ ³ëµå enqueue ÈÄ dequeue\n");
+    // 11. ë‹¨ì¼ ë…¸ë“œ í…ŒìŠ¤íŠ¸
+    printf("11. ë‹¨ì¼ ë…¸ë“œ í…ŒìŠ¤íŠ¸\n");
+    printf("ë‹¨ì¼ ë…¸ë“œ enqueue í›„ dequeue\n");
     ql_enqueue(&queue, 99);
-    printf("99 enqueue ÈÄ: ");
+    printf("99 enqueue í›„: ");
     ql_print(&queue);
 
     result = ql_dequeue(&queue, &dequeue_value);
     if (result) {
-        printf("´ÜÀÏ ³ëµå dequeue: %d\n", dequeue_value);
+        printf("ë‹¨ì¼ ë…¸ë“œ dequeue: %d\n", dequeue_value);
         ql_print(&queue);
     }
-    printf("´ÜÀÏ ³ëµå¿¡¼­ front==rear »óÅÂ È®ÀÎ ¿Ï·á\n");
+    printf("ë‹¨ì¼ ë…¸ë“œì—ì„œ front==rear ìƒíƒœ í™•ì¸ ì™„ë£Œ\n");
     printf("\n");
 
-    // 12. ¿¬°á ¸®½ºÆ® Æ¯¼º Å×½ºÆ® (Å©±â Á¦ÇÑ ¾øÀ½)
-    printf("12. ¿¬°á ¸®½ºÆ® Æ¯¼º Å×½ºÆ®\n");
-    printf("¹è¿­ ±â¹İ°ú ´Ş¸® ÀÌ·ĞÀûÀ¸·Î Å©±â Á¦ÇÑÀÌ ¾øÀ½À» È®ÀÎ\n");
+    // 12. ì—°ê²° ë¦¬ìŠ¤íŠ¸ íŠ¹ì„± í…ŒìŠ¤íŠ¸ (í¬ê¸° ì œí•œ ì—†ìŒ)
+    printf("12. ì—°ê²° ë¦¬ìŠ¤íŠ¸ íŠ¹ì„± í…ŒìŠ¤íŠ¸\n");
+    printf("ë°°ì—´ ê¸°ë°˜ê³¼ ë‹¬ë¦¬ ì´ë¡ ì ìœ¼ë¡œ í¬ê¸° ì œí•œì´ ì—†ìŒì„ í™•ì¸\n");
 
-    // Àû´çÇÑ Å©±â·Î Å×½ºÆ®
+    // ì ë‹¹í•œ í¬ê¸°ë¡œ í…ŒìŠ¤íŠ¸
     for (int i = 1; i <= 15; i++) {
-        ql_enqueue(&queue, i * 3); // 3ÀÇ ¹è¼öµé Ãß°¡
+        ql_enqueue(&queue, i * 3); // 3ì˜ ë°°ìˆ˜ë“¤ ì¶”ê°€
     }
-    printf("15°³ ¿ä¼Ò Ãß°¡ ¿Ï·á, Å©±â: %d\n", ql_size(&queue));
+    printf("15ê°œ ìš”ì†Œ ì¶”ê°€ ì™„ë£Œ, í¬ê¸°: %d\n", ql_size(&queue));
     ql_print(&queue);
 
-    // ¾ÕÂÊ Àı¹İ Á¦°Å
+    // ì•ìª½ ì ˆë°˜ ì œê±°
     for (int i = 0; i < 7; i++) {
         ql_dequeue(&queue, &dequeue_value);
     }
-    printf("7°³ Á¦°Å ÈÄ Å©±â: %d\n", ql_size(&queue));
+    printf("7ê°œ ì œê±° í›„ í¬ê¸°: %d\n", ql_size(&queue));
     ql_print(&queue);
 
-    // µÚÂÊ¿¡ »õ·Î¿î ¿ä¼Ò Ãß°¡
+    // ë’¤ìª½ì— ìƒˆë¡œìš´ ìš”ì†Œ ì¶”ê°€
     for (int i = 50; i < 53; i++) {
         ql_enqueue(&queue, i);
     }
-    printf("3°³ Ãß°¡ ÈÄ: ");
+    printf("3ê°œ ì¶”ê°€ í›„: ");
     ql_print(&queue);
     printf("\n");
 
-    // 13. ºÒº¯½Ä °Ë»ç Å×½ºÆ®
-    printf("13. ºÒº¯½Ä °Ë»ç Å×½ºÆ®\n");
-    printf("ÇöÀç Å¥ »óÅÂ¿¡¼­ ºÒº¯½Ä °Ë»ç...\n");
+    // 13. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸
+    printf("13. ë¶ˆë³€ì‹ ê²€ì‚¬ í…ŒìŠ¤íŠ¸\n");
+    printf("í˜„ì¬ í ìƒíƒœì—ì„œ ë¶ˆë³€ì‹ ê²€ì‚¬...\n");
     ql_print(&queue);
-    printf("ºÒº¯½Ä °Ë»ç ¿Ï·á (¿¡·¯ ¸Ş½ÃÁö°¡ ¾øÀ¸¸é Á¤»ó)\n");
+    printf("ë¶ˆë³€ì‹ ê²€ì‚¬ ì™„ë£Œ (ì—ëŸ¬ ë©”ì‹œì§€ê°€ ì—†ìœ¼ë©´ ì •ìƒ)\n");
     printf("\n");
 
-    // 14. ¸Ş¸ğ¸® ÇØÁ¦
-    printf("14. ¸Ş¸ğ¸® ÇØÁ¦\n");
+    // 14. ë©”ëª¨ë¦¬ í•´ì œ
+    printf("14. ë©”ëª¨ë¦¬ í•´ì œ\n");
     ql_free(&queue);
-    printf("Å¥ ¸Ş¸ğ¸® ÇØÁ¦ ¿Ï·á\n");
+    printf("í ë©”ëª¨ë¦¬ í•´ì œ ì™„ë£Œ\n");
     ql_print(&queue);
-    printf("ÇØÁ¦ ÈÄ Å©±â: %d\n", ql_size(&queue));
+    printf("í•´ì œ í›„ í¬ê¸°: %d\n", ql_size(&queue));
     printf("\n");
 
-    // 15. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®
-    printf("15. NULL Æ÷ÀÎÅÍ ¾ÈÀü¼º Å×½ºÆ®\n");
+    // 15. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸
+    printf("15. NULL í¬ì¸í„° ì•ˆì „ì„± í…ŒìŠ¤íŠ¸\n");
     result = ql_enqueue(NULL, 10);
-    printf("NULL Å¥¿¡ enqueue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("NULL íì— enqueue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
     result = ql_dequeue(NULL, &dequeue_value);
-    printf("NULL Å¥¿¡¼­ dequeue °á°ú: %s\n", result ? "¼º°ø" : "½ÇÆĞ");
+    printf("NULL íì—ì„œ dequeue ê²°ê³¼: %s\n", result ? "ì„±ê³µ" : "ì‹¤íŒ¨");
 
     ql_print(NULL);
-    printf("NULL Æ÷ÀÎÅÍ Å×½ºÆ® ¿Ï·á\n");
+    printf("NULL í¬ì¸í„° í…ŒìŠ¤íŠ¸ ì™„ë£Œ\n");
 
-    printf("\n===== ¿¬°á ¸®½ºÆ® ±â¹İ Å¥ Å×½ºÆ® ¿Ï·á =====\n");
+    printf("\n===== ì—°ê²° ë¦¬ìŠ¤íŠ¸ ê¸°ë°˜ í í…ŒìŠ¤íŠ¸ ì™„ë£Œ =====\n");
     return 0;
 }
