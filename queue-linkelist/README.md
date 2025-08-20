@@ -1,4 +1,4 @@
-[README(ql).md](https://github.com/user-attachments/files/21773993/README.ql.md)
+[README.md](https://github.com/user-attachments/files/21899694/README.ql.md)
 # 연결 리스트 기반 큐 (Queue-Linkedlist)
 
 ## 개념
@@ -116,4 +116,26 @@ typedef struct {
 
 ### 12. 연결 리스트 특성 테스트
 
-- 배열 기반과 달
+- 배열 기반과 달리 이론적으로 크기 제한이 없음 확인
+- 15개 요소 추가 (3의 배수들)
+- 앞쪽 절반 제거 후 크기 변화 확인
+- 뒤쪽에 새로운 요소 추가
+
+### 13. 불변식 검사 테스트
+
+- 현재 큐 상태에서 불변식 검사
+- 모든 enqueue/dequeue 연산 후 `ql_check_invariants()` 자동 실행
+- 빈 큐와 단일 노드 상태 일관성 확인
+- 에러 메시지가 없으면 데이터 구조가 올바르게 유지됨을 확인
+
+### 14. 메모리 해제 테스트
+
+- `ql_free()` 함수로 모든 노드 메모리 해제
+- 해제 후 빈 큐 상태 확인
+- 해제 후 크기 확인
+
+### 15. NULL 포인터 안전성 테스트
+
+- NULL 큐에 대한 모든 연산 테스트
+- `ql_enqueue(NULL, 10)`, `ql_dequeue(NULL, &value)` 테스트
+- `ql_print(NULL)` 테스트
